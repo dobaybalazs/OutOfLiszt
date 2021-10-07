@@ -1,11 +1,11 @@
 # Projektmunka2
 ## Out of Liszt
 ### Correct version
-```npm install
-expo upgrade```
+```npm install```
+```expo upgrade```
 ### Default install
-```npm install --save react-navigation@latest
-expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view```
+```npm install --save react-navigation@latest```
+```expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view```
 ### StackNavigator
 ```npm install --save react-navigation-stack```
 ### TabsNavigator
