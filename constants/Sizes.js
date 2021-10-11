@@ -1,5 +1,6 @@
 export default {
   activeopacity: 0.6,
-  fontsize: 20,
+  titlefontsize: 20,
+  regularfontsize: 14,
   iconsize: 20,
 };
