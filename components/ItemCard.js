@@ -52,10 +52,11 @@ const ItemCard = (props) => {
 
 const styles = StyleSheet.create({
   itemContainer: {
-    width: "85%",
+    width: "100%",
     height: 110,
     alignItems: "center",
     justifyContent: "space-between",
+    backgroundColor: "white",
     borderRadius: 7,
     shadowColor: "black",
     shadowOpacity: 0.26,
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
     },
     shadowRadius: 10,
     elevation: 3,
-    backgroundColor: "white",
+    marginVertical: 10,
   },
   item: {
     flexDirection: "row",
