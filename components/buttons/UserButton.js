@@ -8,7 +8,7 @@ import DefaultText from "../texts/DefaultText";
 
 const UserButton = (props) => {
   return (
-    <View style={styles.userContainer}>
+    <View style={{ ...styles.userContainer, ...props.style }}>
       <View style={styles.userComp}>
         <DefaultText style={styles.userName}>Anya</DefaultText>
         <TouchableOpacity activeOpacity={Sizes.activeopacity}>
@@ -24,7 +24,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderColor: Colors.primarygray,
     borderWidth: 1,
-    width: 150,
+    width: 140,
+    height: 35,
     alignItems: "flex-end",
     justifyContent: "center",
     padding: 8,
