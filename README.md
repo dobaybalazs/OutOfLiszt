@@ -8,4 +8,4 @@ npm install
 expo upgrade
 ```
 ### Ikonok
-'https://icons.expo.fyi/'
+https://icons.expo.fyi/
