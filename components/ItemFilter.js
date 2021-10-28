@@ -10,7 +10,14 @@ import {
 import Sizes from "../constants/Sizes";
 import DefaultText from "./texts/DefaultText";
 import Colors from "../constants/Colors";
-import { filters } from "../screens/RefrigeratorScreen";
+
+export const filters = [
+  { name: "husok", text: "Húsok" },
+  { name: "toldseg", text: "Zöldség" },
+  { name: "gyumolcs", text: "Gyümölcs" },
+  { name: "tej", text: "Tejtermékek" },
+  { name: "fagyasztott", text: "Fagyasztott termékek" },
+];
 
 const ItemFilter = ({ activeFilter, setActiveFilter }) => {
   return (
@@ -20,7 +27,7 @@ const ItemFilter = ({ activeFilter, setActiveFilter }) => {
         showsHorizontalScrollIndicator={false}
         style={{ backgroundColor: Colors.filtergray }}
       >
-        {filters.map(f => (
+        {filters.map((f) => (
           <FilterButton
             key={f.name}
             name={f.name}
@@ -37,25 +44,18 @@ const ItemFilter = ({ activeFilter, setActiveFilter }) => {
 
 const FilterButton = ({ name, activeFilter, setActiveFilter, children }) => {
   return (
-    <View>
+    <View style={name === activeFilter ? styles.activeTextContainer : {}}>
       <TouchableOpacity
         activeOpacity={Sizes.activeopacity}
         onPress={() => setActiveFilter(name)}
       >
         <View style={styles.textContainer}>
-          <DefaultText
-            style={name === activeFilter ? styles.activeText : styles.text}
-          >
-            {children}
-          </DefaultText>
+          <DefaultText style={styles.activeText}>{children}</DefaultText>
         </View>
       </TouchableOpacity>
     </View>
-  )
-
-}
-
-
+  );
+};
 
 const styles = StyleSheet.create({
   text: {
@@ -64,9 +64,11 @@ const styles = StyleSheet.create({
   },
   activeText: {
     fontSize: Sizes.regularfontsize * 1.25,
-    color: 'black',
-    //fontWeight: 'bold',
-    textDecorationLine: 'underline'
+    color: "black",
+  },
+  activeTextContainer: {
+    borderBottomColor: Colors.redcolor,
+    borderBottomWidth: 3,
   },
   textContainer: {
     margin: 10,

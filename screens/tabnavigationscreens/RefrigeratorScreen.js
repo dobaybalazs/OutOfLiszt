@@ -3,31 +3,21 @@ import { StyleSheet, View, ScrollView, Text } from "react-native";
 
 import Colors from "../../constants/Colors";
 import Header from "../../components/Header";
-import ItemFilter from "../../components/ItemFilter";
+import ItemFilter, { filters } from "../../components/ItemFilter";
 import ItemCard from "../../components/ItemCard";
-
-export const filters = [
-  { name: 'husok', text: 'Húsok' },
-  { name: 'toldseg', text: 'Zöldség' },
-  { name: 'gyumolcs', text: 'Gyümölcs' },
-  { name: 'tej', text: 'Tejtermékek' },
-  { name: 'fagyasztott', text: 'Fagyasztott termékek' }
-]
 
 // export const filterNames = filters.map(f => f.name)
 
 const NamedList = ({ name }) => {
   return (
     <View>
-      <Text>
-        {name}
-      </Text>
+      <Text style={{ textAlign: "center", fontSize: 24 }}>{name}</Text>
     </View>
-  )
-}
+  );
+};
 
 const RefrigeratorScreen = (props) => {
-  const [activeFilter, setActiveFilter] = React.useState(filters.husok)
+  const [activeFilter, setActiveFilter] = React.useState(filters.husok);
   return (
     <View style={styles.screen}>
       <Header
@@ -46,11 +36,21 @@ const RefrigeratorScreen = (props) => {
             showsVerticalScrollIndicator={false}
             contentContainerStyle={styles.contentContainer}
           >
-            {activeFilter === filters[0].name && <NamedList name={filters[0].text} />}
-            {activeFilter === filters[1].name && <NamedList name={filters[1].text} />}
-            {activeFilter === filters[2].name && <NamedList name={filters[2].text} />}
-            {activeFilter === filters[3].name && <NamedList name={filters[3].text} />}
-            {activeFilter === filters[4].name && <NamedList name={filters[4].text} />}
+            {activeFilter === filters[0].name && (
+              <NamedList name={filters[0].text} />
+            )}
+            {activeFilter === filters[1].name && (
+              <NamedList name={filters[1].text} />
+            )}
+            {activeFilter === filters[2].name && (
+              <NamedList name={filters[2].text} />
+            )}
+            {activeFilter === filters[3].name && (
+              <NamedList name={filters[3].text} />
+            )}
+            {activeFilter === filters[4].name && (
+              <NamedList name={filters[4].text} />
+            )}
 
             {/* <ItemCard />
             <ItemCard />
