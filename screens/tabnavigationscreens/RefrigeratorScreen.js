@@ -1,18 +1,17 @@
 import React from "react";
 import { StyleSheet, View, ScrollView } from "react-native";
 
-import TitleText from "../components/texts/DefaultText";
-import Colors from "../constants/Colors";
-import Header from "../components/Header";
-import ItemFilter from "../components/ItemFilter";
-import ItemCard from "../components/ItemCard";
+import Colors from "../../constants/Colors";
+import Header from "../../components/Header";
+import ItemFilter from "../../components/ItemFilter";
+import ItemCard from "../../components/ItemCard";
 
 const RefrigeratorScreen = (props) => {
   return (
     <View style={styles.screen}>
       <Header
         style={styles.header}
-        source={require("../assets/headerimages/fridge.jpg")}
+        source={require("../../assets/headerimages/fridge.jpg")}
       >
         Hűtő
       </Header>

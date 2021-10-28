@@ -1,15 +1,15 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-import Header from "../components/Header";
-import ItemFilter from "../components/ItemFilter";
+import Header from "../../components/Header";
+import ItemFilter from "../../components/ItemFilter";
 
 const PantryScreen = (props) => {
   return (
     <View style={styles.screen}>
       <Header
         style={styles.header}
-        source={require("../assets/headerimages/pantry.jpg")}
+        source={require("../../assets/headerimages/pantry.jpg")}
       >
         Kamra
       </Header>
