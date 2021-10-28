@@ -8,15 +8,15 @@ import Sizes from "../constants/Sizes";
 const InputField = (props) => {
   return (
     <View style={styles.container}>
-      <DefaultText style={styles.title}>Title</DefaultText>
-      <TextInput style={styles.input}>Lol</TextInput>
+      <DefaultText style={styles.title}>{props.title}</DefaultText>
+      <TextInput style={styles.input}></TextInput>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    width: "80%",
+    width: "100%",
     justifyContent: "center",
     borderBottomWidth: 1,
     borderBottomColor: Colors.primarygray,

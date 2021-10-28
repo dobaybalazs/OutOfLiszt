@@ -1,5 +1,6 @@
 import React from "react";
 import { Platform } from "react-native";
+import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 import { createAppContainer } from "react-navigation";
@@ -12,11 +13,17 @@ import {
 import DefaultText from "../components/texts/DefaultText";
 
 import Colors from "../constants/Colors";
-import RefrigeratorScreen from "../screens/RefrigeratorScreen";
-import PantryScreen from "../screens/PantryScreen";
-import StatisticsScreen from "../screens/StatisticsScreen";
-import ListsScreen from "../screens/ListsScreen";
-import ProfileScreen from "../screens/ProfileScreen";
+import RefrigeratorScreen from "../screens/tabnavigationscreens/RefrigeratorScreen";
+import PantryScreen from "../screens/tabnavigationscreens/PantryScreen";
+import StatisticsScreen from "../screens/tabnavigationscreens/StatisticsScreen";
+import ListsScreen from "../screens/tabnavigationscreens/ListsScreen";
+import ProfileScreen from "../screens/tabnavigationscreens/ProfileScreen";
+import ListAdditionScreen from "../screens/ListAdditionScreen";
+
+const ListsNavigator = createStackNavigator({
+  Lists: ListsScreen,
+  Addition: ListAdditionScreen,
+});
 
 const bottomTabScreenConfig = {
   Refrigerator: {

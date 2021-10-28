@@ -2,11 +2,11 @@ import React from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-import TitleText from "../components/texts/TitleText";
-import Colors from "../constants/Colors";
-import SearchButton from "../components/buttons/SearchButton";
-import ListItemCard from "../components/ListItemCard";
-import AddButton from "../components/buttons/AddButton";
+import TitleText from "../../components/texts/TitleText";
+import Colors from "../../constants/Colors";
+import SearchButton from "../../components/buttons/SearchButton";
+import ListItemCard from "../../components/ListItemCard";
+import AddButton from "../../components/buttons/AddButton";
 
 const ListsScreen = (props) => {
   return (
