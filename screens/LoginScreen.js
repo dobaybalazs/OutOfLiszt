@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
 
 import InputField from "../components/InputField";
@@ -7,16 +7,18 @@ import Sizes from "../constants/Sizes";
 import Colors from "../constants/Colors";
 
 const LoginScreen = (props) => {
+  const [email,setEmail] = useState("")
+  const [pw,setPw] = useState("") 
   return (
     <View style={styles.screen}>
       <View style={styles.header}>
         <TitleText style={styles.title}>Out of liszt</TitleText>
       </View>
       <View style={styles.form}>
-        <InputField />
-        <InputField />
+        <InputField placeholder="Email" value={email} onChange={v=>setEmail(v)}/>
+        <InputField placeholder="Password" value={pw} onChange={v=>setPw(v)}/>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity activeOpacity={Sizes.activeopacity}>
+          <TouchableOpacity activeOpacity={Sizes.activeopacity} onPress={()=>props.login(email,pw)}>
             <View style={styles.button}>
               <TitleText style={styles.buttonText}>ENTER</TitleText>
             </View>
