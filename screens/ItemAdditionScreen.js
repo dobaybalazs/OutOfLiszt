@@ -1,7 +1,9 @@
 import React from "react";
 import {
   StyleSheet,
+  Text,
   View,
+  TouchableOpacity,
   KeyboardAvoidingView,
   ScrollView,
 } from "react-native";
@@ -11,48 +13,39 @@ import DefaultText from "../components/texts/DefaultText";
 import InputField from "../components/InputField";
 import Sizes from "../constants/Sizes";
 import Colors from "../constants/Colors";
-import PriorityButton from "../components/buttons/PriorityButton";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
-const ListAdditionScreen = (props) => {
+const ItemAdditionScreen = () => {
   return (
     <View style={styles.screen}>
-      <KeyboardAvoidingView behavior={"height"}>
-        <ScrollView>
+      <KeyboardAvoidingView style={{ width: "85%" }} behavior={"height"}>
+        <ScrollView
+          style={{ width: "100%" }}
+          showsVerticalScrollIndicator={false}
+        >
           <View style={styles.header}>
             <TitleText>Out of liszt</TitleText>
           </View>
           <View style={styles.body}>
             <View style={styles.inputContainer}>
-              <InputField title="Lista neve" />
-              <InputField title="Dátum" />
-              <InputField title="Lista megosztása" />
-              <DefaultText style={styles.prior}>Prioritás</DefaultText>
-              <View style={styles.buttonContainer}>
-                <View style={styles.button}>
-                  <PriorityButton color={Colors.redcolor} title="Magas" />
-                </View>
-                <View style={styles.button}>
-                  <PriorityButton color={Colors.greencolor} title="Közepes" />
-                </View>
-                <View style={styles.button}>
-                  <PriorityButton color={Colors.bluecolor} title="Alacsony" />
-                </View>
-              </View>
+              <InputField title="Termék neve" />
+              <InputField title="Termék képe" />
+              <InputField title="Termékkategória" />
+              <InputField title="Termék egység" />
+              <InputField title="Termék ára" />
             </View>
           </View>
           <View style={styles.footer}>
             <TouchableOpacity activeOpacity={Sizes.activeopacity}>
               <View style={styles.topButton}>
                 <DefaultText style={styles.topButtonText}>
-                  Létrehozás
+                  Hozzáadás
                 </DefaultText>
               </View>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={Sizes.activeopacity}>
               <View style={styles.bottomButton}>
                 <DefaultText style={styles.bottomButtonText}>
-                  Törlés
+                  Elvetés
                 </DefaultText>
               </View>
             </TouchableOpacity>
@@ -69,13 +62,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     justifyContent: "center",
     alignItems: "center",
+    width: "100%",
   },
   header: {
     flex: 1,
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
-    height: 125,
+    height: 120,
   },
   body: {
     flex: 4,
@@ -91,17 +85,6 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
   },
-  prior: {
-    fontSize: Sizes.titlefontsize,
-    color: Colors.primarygray,
-  },
-  buttonContainer: {
-    flexDirection: "row",
-  },
-  button: {
-    marginVertical: 20,
-    marginHorizontal: 18,
-  },
   topButton: {
     width: 300,
     backgroundColor: Colors.bluecolor,
@@ -109,6 +92,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     height: 50,
+    marginTop: 20,
   },
   topButtonText: {
     fontSize: Sizes.titlefontsize,
@@ -124,4 +108,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ListAdditionScreen;
+export default ItemAdditionScreen;

@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { StyleSheet, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+  KeyboardAvoidingView,
+} from "react-native";
 
 import InputField from "../components/InputField";
 import TitleText from "../components/texts/TitleText";
@@ -7,24 +14,45 @@ import Sizes from "../constants/Sizes";
 import Colors from "../constants/Colors";
 
 const LoginScreen = (props) => {
-  const [email,setEmail] = useState("")
-  const [pw,setPw] = useState("") 
+  const [email, setEmail] = useState("");
+  const [pw, setPw] = useState("");
   return (
     <View style={styles.screen}>
-      <View style={styles.header}>
-        <TitleText style={styles.title}>Out of liszt</TitleText>
-      </View>
-      <View style={styles.form}>
-        <InputField placeholder="Email" value={email} onChange={v=>setEmail(v)}/>
-        <InputField placeholder="Password" value={pw} onChange={v=>setPw(v)}/>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity activeOpacity={Sizes.activeopacity} onPress={()=>props.login(email,pw)}>
-            <View style={styles.button}>
-              <TitleText style={styles.buttonText}>ENTER</TitleText>
+      <KeyboardAvoidingView>
+        <ScrollView>
+          <View style={styles.header}>
+            <TitleText style={styles.title}>Out of liszt</TitleText>
+          </View>
+          <View style={styles.form}>
+            <InputField
+              placeholder="Email"
+              value={email}
+              onChange={(v) => setEmail(v)}
+            />
+            <InputField
+              placeholder="Password"
+              value={pw}
+              onChange={(v) => setPw(v)}
+            />
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity
+                activeOpacity={Sizes.activeopacity}
+                onPress={() => props.login(email, pw)}
+              >
+                <View style={styles.button}>
+                  <TitleText style={styles.buttonText}>ENTER</TitleText>
+                </View>
+              </TouchableOpacity>
             </View>
-          </TouchableOpacity>
-        </View>
-      </View>
+          </View>
+          <View style={styles.footer}>
+            <Image
+              style={{ width: 200, height: 247 }}
+              source={require("../assets/loginicon.jpg")}
+            />
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </View>
   );
 };
@@ -39,7 +67,7 @@ const styles = StyleSheet.create({
     color: Colors.whitecolor,
   },
   header: {
-    paddingVertical: 20,
+    paddingVertical: 40,
     alignItems: "center",
     backgroundColor: Colors.bluecolor,
     shadowColor: "black",
@@ -52,10 +80,11 @@ const styles = StyleSheet.create({
     elevation: 6,
   },
   form: {
-    flex: 1,
     width: "100%",
+    paddingHorizontal: "10%",
     justifyContent: "center",
     alignItems: "center",
+    marginVertical: 30,
   },
   buttonContainer: {
     width: "80%",
@@ -75,10 +104,17 @@ const styles = StyleSheet.create({
     elevation: 3,
     justifyContent: "center",
     alignItems: "center",
+    marginTop: 15,
   },
   buttonText: {
     fontSize: Sizes.titlefontsize,
     color: Colors.whitecolor,
+  },
+  footer: {
+    width: "100%",
+    height: 300,
+    alignItems: "flex-end",
+    justifyContent: "flex-end",
   },
 });
 
