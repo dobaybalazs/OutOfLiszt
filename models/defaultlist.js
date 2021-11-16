@@ -1,10 +1,11 @@
 class DefaultList {
-  constructor(id, name, products, quantity, pricesum) {
+  constructor(id, name, products, users, priority, date) {
     this.id = id;
     this.name = name;
     this.products = products;
-    this.quantity = quantity;
-    this.pricesum = pricesum;
+    this.users = users;
+    this.priority = priority;
+    this.date = date;
   }
 }
 

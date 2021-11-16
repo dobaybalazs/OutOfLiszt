@@ -19,11 +19,72 @@ import StatisticsScreen from "../screens/tabnavigationscreens/StatisticsScreen";
 import ListsScreen from "../screens/tabnavigationscreens/ListsScreen";
 import ProfileScreen from "../screens/tabnavigationscreens/ProfileScreen";
 import ListAdditionScreen from "../screens/ListAdditionScreen";
+import ListItemsScreen from "../screens/ListItemsScreen";
+import ItemAdditionScreen from "../screens/ItemAdditionScreen";
+import ItemDetailScreen from "../screens/ItemDetailScreen";
 
-const ListsNavigator = createStackNavigator({
-  Lists: ListsScreen,
-  Addition: ListAdditionScreen,
-});
+const defaultStackNavOptions = {
+  headerMode: "float",
+  headerStyle: {
+    backgroundColor: "white",
+  },
+  headerTitleStyle: {
+    fontFamily: "open-sans",
+    fontSize: 24,
+  },
+  headerTintColor: Colors.secondarygray,
+  headerTitleAlign: "center",
+};
+
+const ListsNavigator = createStackNavigator(
+  {
+    Lists: {
+      screen: ListsScreen,
+      navigationOptions: {
+        headerTitle: "Out of liszt",
+      },
+    },
+    ListAddition: {
+      screen: ListAdditionScreen,
+      navigationOptions: {
+        headerTitle: "Out of liszt",
+      },
+    },
+    ListItems: {
+      screen: ListItemsScreen,
+      navigationOptions: {
+        headerTitle: "Out of liszt",
+        headerStyle: {
+          backgroundColor: Colors.redcolor,
+        },
+        headerTintColor: Colors.whitecolor,
+      },
+    },
+    ItemAddition: {
+      screen: ItemAdditionScreen,
+      navigationOptions: {
+        headerTitle: "Out of liszt",
+        headerStyle: {
+          backgroundColor: Colors.redcolor,
+        },
+        headerTintColor: Colors.whitecolor,
+      },
+    },
+    ItemDetails: {
+      screen: ItemDetailScreen,
+      navigationOptions: {
+        headerTitle: "Out of liszt",
+        headerStyle: {
+          backgroundColor: Colors.redcolor,
+        },
+        headerTintColor: Colors.whitecolor,
+      },
+    },
+  },
+  {
+    defaultNavigationOptions: defaultStackNavOptions,
+  }
+);
 
 const bottomTabScreenConfig = {
   Refrigerator: {
@@ -69,7 +130,7 @@ const bottomTabScreenConfig = {
     },
   },
   Lists: {
-    screen: ListsScreen,
+    screen: ListsNavigator,
     navigationOptions: {
       tabBarIcon: (tabInfo) => {
         return (

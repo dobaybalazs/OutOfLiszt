@@ -19,6 +19,7 @@ const List = (props) => {
           ...{ backgroundColor: props.color },
         }}
         activeOpacity={Sizes.activeopacity}
+        onPress={props.onSelect}
       >
         <View style={styles.itemCountContainer}>
           <DefaultText style={styles.itemCount}>3 termék</DefaultText>

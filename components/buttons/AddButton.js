@@ -6,7 +6,7 @@ import Colors from "../../constants/Colors";
 
 const AddButton = (props) => {
   return (
-    <TouchableOpacity activeOpacity={0.6}>
+    <TouchableOpacity activeOpacity={0.6} onPress={props.onSelect}>
       <View style={styles.button}>
         <Ionicons name="md-add" size={34} color="white" />
       </View>

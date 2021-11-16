@@ -17,9 +17,6 @@ const Header = (props) => {
     <View style={{ ...styles.screen, ...props.style }}>
       <ImageBackground style={styles.imageContainer} source={props.source}>
         <View style={styles.container}>
-          <View style={styles.buttonContainer}>
-            <SearchButton color={Colors.whitecolor} />
-          </View>
           <View style={styles.textContainer}>
             <TitleText style={styles.text}>{props.children}</TitleText>
           </View>
@@ -43,6 +40,7 @@ const styles = StyleSheet.create({
   textContainer: {
     flex: 2,
     alignItems: "center",
+    justifyContent: "center",
   },
   buttonContainer: {
     flex: 1,

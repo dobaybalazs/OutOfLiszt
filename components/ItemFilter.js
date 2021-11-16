@@ -15,8 +15,9 @@ export const filters = [
   { name: "husok", text: "Húsok" },
   { name: "toldseg", text: "Zöldség" },
   { name: "gyumolcs", text: "Gyümölcs" },
-  { name: "tej", text: "Tejtermékek" },
-  { name: "fagyasztott", text: "Fagyasztott termékek" },
+  { name: "tejtermek", text: "Tejtermékek" },
+  { name: "tesztak", text: "Tészták" },
+  { name: "edessegek", text: "Édességek" },
 ];
 
 const ItemFilter = ({ activeFilter, setActiveFilter }) => {

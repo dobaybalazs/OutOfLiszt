@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
 import Colors from "../constants/Colors";
@@ -13,22 +13,19 @@ import ItemCard from "../components/ItemCard";
 const ListItemsScreen = (props) => {
   return (
     <View style={styles.screen}>
-      <View style={styles.headerContainer}>
-        <View style={styles.header}></View>
-        <View style={styles.usersContainer}>
-          <View style={styles.users}>
-            <View>
-              <ScrollView
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-              >
-                <UserButton style={styles.user} />
-                <UserButton style={styles.user} />
-              </ScrollView>
-            </View>
-            <View style={{ padding: 15 }}>
-              <AddUserButton color={Colors.primarygray} />
-            </View>
+      <View style={styles.usersContainer}>
+        <View style={styles.users}>
+          <View>
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            >
+              <UserButton style={styles.user} />
+              <UserButton style={styles.user} />
+            </ScrollView>
+          </View>
+          <View style={{ padding: 15 }}>
+            <AddUserButton color={Colors.primarygray} />
           </View>
         </View>
       </View>
@@ -45,7 +42,13 @@ const ListItemsScreen = (props) => {
               showsVerticalScrollIndicator={false}
               contentContainerStyle={styles.contentContainer}
             >
-              <ItemCard />
+              <ItemCard
+                onSelect={() => {
+                  props.navigation.navigate({
+                    routeName: "ItemDetails",
+                  });
+                }}
+              />
               <ItemCard />
               <ItemCard />
               <ItemCard />
@@ -53,7 +56,13 @@ const ListItemsScreen = (props) => {
           </View>
         </View>
         <View style={styles.buttonContainer}>
-          <AddButton />
+          <AddButton
+            onSelect={() => {
+              props.navigation.navigate({
+                routeName: "ItemAddition",
+              });
+            }}
+          />
         </View>
       </View>
     </View>
@@ -66,11 +75,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     justifyContent: "center",
     alignItems: "center",
-  },
-  headerContainer: {
-    flex: 1,
-    backgroundColor: Colors.redcolor,
-    width: "100%",
   },
   header: {
     flex: 2,
@@ -97,7 +101,7 @@ const styles = StyleSheet.create({
     marginVertical: 15,
   },
   body: {
-    flex: 3,
+    flex: 8,
     width: "100%",
   },
   listheaderContainer: {

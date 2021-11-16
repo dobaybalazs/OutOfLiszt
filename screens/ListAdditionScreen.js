@@ -19,9 +19,6 @@ const ListAdditionScreen = (props) => {
     <View style={styles.screen}>
       <KeyboardAvoidingView behavior={"height"}>
         <ScrollView>
-          <View style={styles.header}>
-            <TitleText>Out of liszt</TitleText>
-          </View>
           <View style={styles.body}>
             <View style={styles.inputContainer}>
               <InputField title="Lista neve" />
@@ -42,14 +39,24 @@ const ListAdditionScreen = (props) => {
             </View>
           </View>
           <View style={styles.footer}>
-            <TouchableOpacity activeOpacity={Sizes.activeopacity}>
+            <TouchableOpacity
+              activeOpacity={Sizes.activeopacity}
+              onPress={() => {
+                props.navigation.popToTop();
+              }}
+            >
               <View style={styles.topButton}>
                 <DefaultText style={styles.topButtonText}>
                   Létrehozás
                 </DefaultText>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={Sizes.activeopacity}>
+            <TouchableOpacity
+              activeOpacity={Sizes.activeopacity}
+              onPress={() => {
+                props.navigation.popToTop();
+              }}
+            >
               <View style={styles.bottomButton}>
                 <DefaultText style={styles.bottomButtonText}>
                   Törlés
@@ -69,13 +76,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     justifyContent: "center",
     alignItems: "center",
-  },
-  header: {
-    flex: 1,
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-    height: 125,
   },
   body: {
     flex: 4,

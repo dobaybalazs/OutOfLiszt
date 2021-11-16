@@ -30,7 +30,7 @@ const ItemCard = (props) => {
     <View style={styles.topContainer}>
       <View style={styles.itemContainer}>
         <Swipeable renderRightActions={rightSwipe} waitFor>
-          <TouchableOpacity activeOpacity={0.6}>
+          <TouchableOpacity activeOpacity={0.6} onPress={props.onSelect}>
             <View style={styles.item}>
               <Image
                 style={styles.image}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   ScrollView,
+  Switch,
 } from "react-native";
 
 import TitleText from "../components/texts/TitleText";
@@ -14,7 +15,8 @@ import InputField from "../components/InputField";
 import Sizes from "../constants/Sizes";
 import Colors from "../constants/Colors";
 
-const ItemAdditionScreen = () => {
+const ItemAdditionScreen = (props) => {
+  const [isColdStorage, setColdStorage] = useState(false);
   return (
     <View style={styles.screen}>
       <KeyboardAvoidingView style={{ width: "85%" }} behavior={"height"}>
@@ -22,9 +24,6 @@ const ItemAdditionScreen = () => {
           style={{ width: "100%" }}
           showsVerticalScrollIndicator={false}
         >
-          <View style={styles.header}>
-            <TitleText>Out of liszt</TitleText>
-          </View>
           <View style={styles.body}>
             <View style={styles.inputContainer}>
               <InputField title="Termék neve" />
@@ -32,17 +31,49 @@ const ItemAdditionScreen = () => {
               <InputField title="Termékkategória" />
               <InputField title="Termék egység" />
               <InputField title="Termék ára" />
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <DefaultText
+                  style={{ color: Colors.primarygray, fontSize: 20 }}
+                >
+                  Hűtőben tárolandó?
+                </DefaultText>
+                <Switch
+                  trackColor={{
+                    true: Colors.redcolor,
+                    false: Colors.primarygray,
+                  }}
+                  thumbColor={isColdStorage ? "red" : Colors.secondarygray}
+                  value={isColdStorage}
+                  onValueChange={(newValue) => setColdStorage(newValue)}
+                />
+              </View>
             </View>
           </View>
           <View style={styles.footer}>
-            <TouchableOpacity activeOpacity={Sizes.activeopacity}>
+            <TouchableOpacity
+              activeOpacity={Sizes.activeopacity}
+              onPress={() => {
+                props.navigation.goBack();
+              }}
+            >
               <View style={styles.topButton}>
                 <DefaultText style={styles.topButtonText}>
                   Hozzáadás
                 </DefaultText>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={Sizes.activeopacity}>
+            <TouchableOpacity
+              activeOpacity={Sizes.activeopacity}
+              onPress={() => {
+                props.navigation.goBack();
+              }}
+            >
               <View style={styles.bottomButton}>
                 <DefaultText style={styles.bottomButtonText}>
                   Elvetés
@@ -64,14 +95,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
   },
-  header: {
-    flex: 1,
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-    height: 120,
-  },
   body: {
+    marginTop: 40,
     flex: 4,
     width: "100%",
     alignItems: "center",

@@ -1,12 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, ScrollView, Text } from "react-native";
 
 import Colors from "../../constants/Colors";
 import Header from "../../components/Header";
 import ItemFilter, { filters } from "../../components/ItemFilter";
-import ItemCard from "../../components/ItemCard";
-
-// export const filterNames = filters.map(f => f.name)
 
 const NamedList = ({ name }) => {
   return (
@@ -17,7 +14,7 @@ const NamedList = ({ name }) => {
 };
 
 const RefrigeratorScreen = (props) => {
-  const [activeFilter, setActiveFilter] = React.useState(filters.husok);
+  const [activeFilter, setActiveFilter] = useState(filters.husok);
   return (
     <View style={styles.screen}>
       <Header
@@ -50,6 +47,9 @@ const RefrigeratorScreen = (props) => {
             )}
             {activeFilter === filters[4].name && (
               <NamedList name={filters[4].text} />
+            )}
+            {activeFilter === filters[5].name && (
+              <NamedList name={filters[5].text} />
             )}
 
             {/* <ItemCard />
