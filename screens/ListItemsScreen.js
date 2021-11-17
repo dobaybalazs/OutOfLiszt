@@ -1,6 +1,5 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import { StyleSheet, View, FlatList, ScrollView } from "react-native";
 
 import Colors from "../constants/Colors";
 import UserButton from "../components/buttons/UserButton";
@@ -9,23 +8,76 @@ import AddButton from "../components/buttons/AddButton";
 import DefaultText from "../components/texts/DefaultText";
 import DeleteButton from "../components/buttons/DeleteButton";
 import ItemCard from "../components/ItemCard";
+import { LISTITEMS, USERS } from "../data/dummy-data";
 
 const ListItemsScreen = (props) => {
+  const users = props.navigation.getParam("listUsers");
+  const products = props.navigation.getParam("listProducts");
+  const currentUsers = [];
+  for (const user of users) {
+    currentUsers.push(
+      USERS.find((element) => {
+        return user === element.id;
+      })
+    );
+  }
+  const currentProducts = [];
+  for (const product of products) {
+    currentProducts.push(
+      LISTITEMS.find((element) => {
+        return product === element.id;
+      })
+    );
+  }
+  const renderListItem = (itemData) => {
+    return (
+      <ItemCard
+        name={itemData.item.name}
+        image={itemData.item.img}
+        unit={itemData.item.unit}
+        onSelect={() => {
+          props.navigation.navigate({
+            routeName: "ItemDetails",
+            params: {
+              itemName: itemData.item.name,
+              itemImage: itemData.item.img,
+              itemUnit: itemData.item.unit,
+              itemPrice: itemData.item.price,
+              itemCategoryId: itemData.item.categoryId,
+              itemPageColor: props.navigation.getParam("pageHeaderColor"),
+              itemPageTitle: props.navigation.getParam("listTitle"),
+            },
+          });
+        }}
+      />
+    );
+  };
+  const renderUser = (itemData) => {
+    return <UserButton name={itemData.item.username} style={styles.user} />;
+  };
   return (
     <View style={styles.screen}>
       <View style={styles.usersContainer}>
         <View style={styles.users}>
           <View>
-            <ScrollView
+            <FlatList
+              keyExtractor={(item, index) => item.id}
               horizontal={true}
               showsHorizontalScrollIndicator={false}
-            >
-              <UserButton style={styles.user} />
-              <UserButton style={styles.user} />
-            </ScrollView>
+              data={currentUsers}
+              renderItem={renderUser}
+              style={{ marginHorizontal: 15 }}
+            />
           </View>
           <View style={{ padding: 15 }}>
-            <AddUserButton color={Colors.primarygray} />
+            <AddUserButton
+              color={Colors.primarygray}
+              onSelect={() => {
+                props.navigation.navigate({
+                  routeName: "UserSearch",
+                });
+              }}
+            />
           </View>
         </View>
       </View>
@@ -37,26 +89,18 @@ const ListItemsScreen = (props) => {
           </View>
         </View>
         <View style={styles.listContainer}>
-          <View style={styles.list}>
-            <ScrollView
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={styles.contentContainer}
-            >
-              <ItemCard
-                onSelect={() => {
-                  props.navigation.navigate({
-                    routeName: "ItemDetails",
-                  });
-                }}
-              />
-              <ItemCard />
-              <ItemCard />
-              <ItemCard />
-            </ScrollView>
-          </View>
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.contentContainer}
+            renderItem={renderListItem}
+            data={currentProducts}
+            keyExtractor={(item, index) => item.id}
+            style={{ marginHorizontal: 15 }}
+          />
         </View>
         <View style={styles.buttonContainer}>
           <AddButton
+            color={props.navigation.getParam("pageHeaderColor")}
             onSelect={() => {
               props.navigation.navigate({
                 routeName: "ItemAddition",
@@ -67,6 +111,18 @@ const ListItemsScreen = (props) => {
       </View>
     </View>
   );
+};
+
+ListItemsScreen.navigationOptions = (navData) => {
+  const pageTitle = navData.navigation.getParam("listTitle");
+  const pageHeaderColor = navData.navigation.getParam("pageHeaderColor");
+  return {
+    headerTitle: pageTitle,
+    headerStyle: {
+      backgroundColor: pageHeaderColor,
+    },
+    headerTintColor: Colors.whitecolor,
+  };
 };
 
 const styles = StyleSheet.create({
@@ -119,19 +175,15 @@ const styles = StyleSheet.create({
   listContainer: {
     flex: 7,
     width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: Colors.whitecolor,
   },
   buttonContainer: {
     flex: 2,
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
-  },
-  list: {
-    flex: 1,
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: Colors.whitecolor,
   },
   contentContainer: {
     padding: 5,

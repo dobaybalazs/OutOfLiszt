@@ -363,6 +363,14 @@ export const USERS = [
     17,
     "female"
   ),
+  new User(
+    "u3",
+    "Molnár Kata",
+    "Anya",
+    "https://onszak.pte.hu/userfiles/szemely/20/400x400.jpg",
+    48,
+    "female"
+  ),
 ];
 
 export const DEFAULTLIST = [
@@ -389,5 +397,15 @@ export const DEFAULTLIST = [
     ["u2"],
     "blue",
     "Március 15"
+  ),
+  new DefaultList(
+    "l4",
+    "Ünnepi uzsonna",
+    ["i2", "i3", "i4"],
+    [],
+    Colors.primarygray,
+    "Május",
+    7,
+    12
   ),
 ];

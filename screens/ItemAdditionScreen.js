@@ -45,10 +45,10 @@ const ItemAdditionScreen = (props) => {
                 </DefaultText>
                 <Switch
                   trackColor={{
-                    true: Colors.redcolor,
+                    true: Colors.bluecolor,
                     false: Colors.primarygray,
                   }}
-                  thumbColor={isColdStorage ? "red" : Colors.secondarygray}
+                  thumbColor={isColdStorage ? "blue" : Colors.secondarygray}
                   value={isColdStorage}
                   onValueChange={(newValue) => setColdStorage(newValue)}
                 />

@@ -1,19 +1,22 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
 
 import Header from "../../components/Header";
+import ItemCard from "../../components/ItemCard";
 import ItemFilter, { filters } from "../../components/ItemFilter";
 import Colors from "../../constants/Colors";
-
-const NamedList = ({ name }) => {
-  return (
-    <View>
-      <Text style={{ textAlign: "center", fontSize: 24 }}>{name}</Text>
-    </View>
-  );
-};
+import { LISTITEMS } from "../../data/dummy-data";
 
 const PantryScreen = (props) => {
+  const NamedList = (itemData) => {
+    return (
+      <ItemCard
+        name={itemData.item.name}
+        image={itemData.item.img}
+        unit={itemData.item.unit}
+      />
+    );
+  };
   const [activeFilter, setActiveFilter] = useState(filters.husok);
   return (
     <View style={styles.screen}>
@@ -29,34 +32,16 @@ const PantryScreen = (props) => {
           setActiveFilter={setActiveFilter}
         />
         <View style={styles.list}>
-          <ScrollView
+          <FlatList
             showsVerticalScrollIndicator={false}
             contentContainerStyle={styles.contentContainer}
-          >
-            {activeFilter === filters[0].name && (
-              <NamedList name={filters[0].text} />
-            )}
-            {activeFilter === filters[1].name && (
-              <NamedList name={filters[1].text} />
-            )}
-            {activeFilter === filters[2].name && (
-              <NamedList name={filters[2].text} />
-            )}
-            {activeFilter === filters[3].name && (
-              <NamedList name={filters[3].text} />
-            )}
-            {activeFilter === filters[4].name && (
-              <NamedList name={filters[4].text} />
-            )}
-            {activeFilter === filters[5].name && (
-              <NamedList name={filters[5].text} />
-            )}
-
-            {/* <ItemCard />
-            <ItemCard />
-            <ItemCard />
-            <ItemCard /> */}
-          </ScrollView>
+            renderItem={NamedList}
+            data={LISTITEMS.filter((item) => {
+              return (
+                activeFilter === item.categoryId && item.coldStorage === false
+              );
+            })}
+          />
         </View>
       </View>
     </View>

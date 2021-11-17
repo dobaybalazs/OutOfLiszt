@@ -29,19 +29,37 @@ const ItemCard = (props) => {
   return (
     <View style={styles.topContainer}>
       <View style={styles.itemContainer}>
-        <Swipeable renderRightActions={rightSwipe} waitFor>
+        <Swipeable
+          renderRightActions={rightSwipe}
+          containerStyle={{ flex: 1, width: "100%" }}
+        >
           <TouchableOpacity activeOpacity={0.6} onPress={props.onSelect}>
             <View style={styles.item}>
-              <Image
-                style={styles.image}
-                source={{
-                  uri: "https://i2.wp.com/karissasvegankitchen.com/wp-content/uploads/2019/03/c-vegan-chocolate-bars-4-500x500.jpg",
+              <View style={{ flex: 4 }}>
+                <Image
+                  style={styles.image}
+                  source={{
+                    uri: props.image,
+                  }}
+                  resizeMode="cover"
+                />
+              </View>
+              <View
+                style={{
+                  flex: 6,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
                 }}
-                resizeMode="cover"
-              />
-              <DefaultText style={styles.title}>Csokoládé</DefaultText>
-              <DefaultText style={styles.quantity}>1 tábla</DefaultText>
-              <QuantityButton />
+              >
+                <DefaultText style={styles.title}>{props.name}</DefaultText>
+                <DefaultText style={styles.quantity}>
+                  1 {props.unit}
+                </DefaultText>
+              </View>
+              <View style={{ flex: 1 }}>
+                <QuantityButton />
+              </View>
             </View>
           </TouchableOpacity>
         </Swipeable>
@@ -51,12 +69,17 @@ const ItemCard = (props) => {
 };
 
 const styles = StyleSheet.create({
+  topContainer: {
+    flex: 1,
+    width: 350,
+  },
   itemContainer: {
+    flex: 1,
+    flexDirection: "row",
     width: "100%",
     height: 110,
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: "white",
+    justifyContent: "center",
+    backgroundColor: Colors.whitecolor,
     borderRadius: 7,
     shadowColor: "black",
     shadowOpacity: 0.26,
@@ -69,11 +92,11 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   item: {
+    width: "100%",
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     padding: 10,
-    backgroundColor: "white",
   },
   image: {
     width: 100,

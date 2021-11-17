@@ -13,7 +13,7 @@ import Colors from "../constants/Colors";
 
 export const filters = [
   { name: "husok", text: "Húsok" },
-  { name: "toldseg", text: "Zöldség" },
+  { name: "zoldseg", text: "Zöldség" },
   { name: "gyumolcs", text: "Gyümölcs" },
   { name: "tejtermek", text: "Tejtermékek" },
   { name: "tesztak", text: "Tészták" },

@@ -22,6 +22,7 @@ import ListAdditionScreen from "../screens/ListAdditionScreen";
 import ListItemsScreen from "../screens/ListItemsScreen";
 import ItemAdditionScreen from "../screens/ItemAdditionScreen";
 import ItemDetailScreen from "../screens/ItemDetailScreen";
+import SearchForUserScreen from "../screens/SearchForUserScreen";
 
 const defaultStackNavOptions = {
   headerMode: "float",
@@ -35,7 +36,6 @@ const defaultStackNavOptions = {
   headerTintColor: Colors.secondarygray,
   headerTitleAlign: "center",
 };
-
 const ListsNavigator = createStackNavigator(
   {
     Lists: {
@@ -52,32 +52,28 @@ const ListsNavigator = createStackNavigator(
     },
     ListItems: {
       screen: ListItemsScreen,
-      navigationOptions: {
-        headerTitle: "Out of liszt",
-        headerStyle: {
-          backgroundColor: Colors.redcolor,
-        },
-        headerTintColor: Colors.whitecolor,
-      },
     },
     ItemAddition: {
       screen: ItemAdditionScreen,
       navigationOptions: {
         headerTitle: "Out of liszt",
         headerStyle: {
-          backgroundColor: Colors.redcolor,
+          backgroundColor: Colors.whitecolor,
         },
-        headerTintColor: Colors.whitecolor,
+        headerTintColor: Colors.secondarygray,
       },
     },
     ItemDetails: {
       screen: ItemDetailScreen,
+    },
+    UserSearch: {
+      screen: SearchForUserScreen,
       navigationOptions: {
-        headerTitle: "Out of liszt",
+        headerTitle: "Search for Users",
         headerStyle: {
-          backgroundColor: Colors.redcolor,
+          backgroundColor: Colors.whitecolor,
         },
-        headerTintColor: Colors.whitecolor,
+        headerTintColor: Colors.secondarygray,
       },
     },
   },

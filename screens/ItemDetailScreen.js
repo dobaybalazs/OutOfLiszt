@@ -1,36 +1,66 @@
 import React from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, View, Image } from "react-native";
 
 import Colors from "../constants/Colors";
 import DefaultText from "../components/texts/DefaultText";
+import { filters } from "../components/ItemFilter";
 
 const ItemDetailScreen = (props) => {
+  props.navigation.getParam("itemPageColor");
+  const category = filters.find(
+    (item) => item.name === props.navigation.getParam("itemCategoryId")
+  );
   return (
     <View style={styles.screen}>
-      <View style={styles.board}>
+      <View
+        style={{
+          ...styles.board,
+          ...{ backgroundColor: props.navigation.getParam("itemPageColor") },
+        }}
+      >
         <View style={styles.imageContainer}>
           <Image
             style={styles.image}
             source={{
-              uri: "https://i2.wp.com/karissasvegankitchen.com/wp-content/uploads/2019/03/c-vegan-chocolate-bars-4-500x500.jpg",
+              uri: props.navigation.getParam("itemImage"),
             }}
           />
         </View>
         <View style={styles.attribute}>
-          <DefaultText style={styles.text}>Név: Csokoládé</DefaultText>
+          <DefaultText style={styles.text}>
+            Név: {props.navigation.getParam("itemName")}
+          </DefaultText>
         </View>
         <View style={styles.attribute}>
-          <DefaultText style={styles.text}>Mértékegység: tábla</DefaultText>
+          <DefaultText style={styles.text}>
+            Mértékegység: {props.navigation.getParam("itemUnit")}
+          </DefaultText>
         </View>
         <View style={styles.attribute}>
-          <DefaultText style={styles.text}>Ár: 250 Ft</DefaultText>
+          <DefaultText style={styles.text}>
+            Ár: {props.navigation.getParam("itemPrice")} Ft
+          </DefaultText>
         </View>
         <View style={styles.attribute}>
-          <DefaultText style={styles.text}>Kategória: Édesség</DefaultText>
+          <DefaultText style={styles.text}>
+            Kategória: {category.text}
+          </DefaultText>
         </View>
       </View>
     </View>
   );
+};
+
+ItemDetailScreen.navigationOptions = (navData) => {
+  const pageTitle = navData.navigation.getParam("itemPageTitle");
+  const pageHeaderColor = navData.navigation.getParam("itemPageColor");
+  return {
+    headerTitle: pageTitle,
+    headerStyle: {
+      backgroundColor: pageHeaderColor,
+    },
+    headerTintColor: Colors.whitecolor,
+  };
 };
 
 const styles = StyleSheet.create({

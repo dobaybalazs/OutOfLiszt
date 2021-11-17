@@ -8,7 +8,10 @@ import Sizes from "../../constants/Sizes";
 const AddUserButton = (props) => {
   return (
     <View style={{ ...styles.button, ...props.style }}>
-      <TouchableOpacity activeOpacity={Sizes.activeopacity}>
+      <TouchableOpacity
+        activeOpacity={Sizes.activeopacity}
+        onPress={props.onSelect}
+      >
         <MaterialIcons name="group-add" size={34} color={props.color} />
       </TouchableOpacity>
     </View>
