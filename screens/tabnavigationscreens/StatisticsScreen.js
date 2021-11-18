@@ -1,9 +1,11 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, ScrollView } from "react-native";
 import SVG, { G, Circle, Text } from "react-native-svg";
 import Colors from "../../constants/Colors";
 
 import DefaultText from "../../components/texts/DefaultText";
+import { LISTITEMS } from "../../data/dummy-data";
+import { filters } from "../../components/ItemFilter";
 
 const StatisticsScreen = (props) => {
   return (
@@ -57,7 +59,7 @@ const StatisticsScreen = (props) => {
               strokeLinecap="square"
             />
             <Text
-              x="38%"
+              x="42%"
               y="45%"
               text-anchor="middle"
               stroke="none"
@@ -66,7 +68,7 @@ const StatisticsScreen = (props) => {
               alignment-baseline="middle"
               fill={Colors.secondarygray}
             >
-              150
+              {LISTITEMS.length}
             </Text>
             <Text
               x="28%"
@@ -98,98 +100,239 @@ const StatisticsScreen = (props) => {
         </SVG>
       </View>
       <View style={styles.body}>
-        <View style={styles.categoryContainer}>
-          <View
-            style={{
-              width: 8,
-              height: 8,
-              borderRadius: 10000,
-              backgroundColor: "red",
-            }}
-          ></View>
-          <View style={styles.category}>
-            <DefaultText style={styles.text}>Hús</DefaultText>
+        <ScrollView
+          contentContainerStyle={{ width: "100%" }}
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.categoryContainer}>
             <View
               style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                width: 80,
+                width: 8,
+                height: 8,
+                borderRadius: 10000,
+                backgroundColor: "red",
               }}
-            >
-              <DefaultText style={styles.text}>84</DefaultText>
-              <DefaultText style={styles.text}>42%</DefaultText>
+            ></View>
+            <View style={styles.category}>
+              <DefaultText style={styles.text}>Hús</DefaultText>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  width: 80,
+                }}
+              >
+                <DefaultText style={styles.text}>
+                  {
+                    LISTITEMS.filter((item) => {
+                      return filters[0].name === item.categoryId;
+                    }).length
+                  }
+                </DefaultText>
+                <DefaultText style={styles.text}>
+                  {Math.round(
+                    (LISTITEMS.filter((item) => {
+                      return filters[0].name === item.categoryId;
+                    }).length /
+                      LISTITEMS.length) *
+                      100
+                  )}
+                  %
+                </DefaultText>
+              </View>
             </View>
           </View>
-        </View>
-        <View style={styles.categoryContainer}>
-          <View
-            style={{
-              width: 8,
-              height: 8,
-              borderRadius: 10000,
-              backgroundColor: "green",
-            }}
-          ></View>
-          <View style={styles.category}>
-            <DefaultText style={styles.text}>Tejtermék</DefaultText>
+          <View style={styles.categoryContainer}>
             <View
               style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                width: 80,
+                width: 8,
+                height: 8,
+                borderRadius: 10000,
+                backgroundColor: "green",
               }}
-            >
-              <DefaultText style={styles.text}>32</DefaultText>
-              <DefaultText style={styles.text}>16%</DefaultText>
+            ></View>
+            <View style={styles.category}>
+              <DefaultText style={styles.text}>Tejtermék</DefaultText>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  width: 80,
+                }}
+              >
+                <DefaultText style={styles.text}>
+                  {
+                    LISTITEMS.filter((item) => {
+                      return filters[3].name === item.categoryId;
+                    }).length
+                  }
+                </DefaultText>
+                <DefaultText style={styles.text}>
+                  {Math.round(
+                    (LISTITEMS.filter((item) => {
+                      return filters[3].name === item.categoryId;
+                    }).length /
+                      LISTITEMS.length) *
+                      100
+                  )}
+                  %
+                </DefaultText>
+              </View>
             </View>
           </View>
-        </View>
-        <View style={styles.categoryContainer}>
-          <View
-            style={{
-              width: 8,
-              height: 8,
-              borderRadius: 10000,
-              backgroundColor: "yellow",
-            }}
-          ></View>
-          <View style={styles.category}>
-            <DefaultText style={styles.text}>Gyümölcs</DefaultText>
+          <View style={styles.categoryContainer}>
             <View
               style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                width: 80,
+                width: 8,
+                height: 8,
+                borderRadius: 10000,
+                backgroundColor: "yellow",
               }}
-            >
-              <DefaultText style={styles.text}>54</DefaultText>
-              <DefaultText style={styles.text}>27%</DefaultText>
+            ></View>
+            <View style={styles.category}>
+              <DefaultText style={styles.text}>Gyümölcs</DefaultText>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  width: 80,
+                }}
+              >
+                <DefaultText style={styles.text}>
+                  {
+                    LISTITEMS.filter((item) => {
+                      return filters[2].name === item.categoryId;
+                    }).length
+                  }
+                </DefaultText>
+                <DefaultText style={styles.text}>
+                  {Math.round(
+                    (LISTITEMS.filter((item) => {
+                      return filters[2].name === item.categoryId;
+                    }).length /
+                      LISTITEMS.length) *
+                      100
+                  )}
+                  %
+                </DefaultText>
+              </View>
             </View>
           </View>
-        </View>
-        <View style={styles.categoryContainer}>
-          <View
-            style={{
-              width: 8,
-              height: 8,
-              borderRadius: 10000,
-              backgroundColor: Colors.bluecolor,
-            }}
-          ></View>
-          <View style={styles.category}>
-            <DefaultText style={styles.text}>Zöldség</DefaultText>
+          <View style={styles.categoryContainer}>
             <View
               style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                width: 80,
+                width: 8,
+                height: 8,
+                borderRadius: 10000,
+                backgroundColor: Colors.bluecolor,
               }}
-            >
-              <DefaultText style={styles.text}>30</DefaultText>
-              <DefaultText style={styles.text}>15%</DefaultText>
+            ></View>
+            <View style={styles.category}>
+              <DefaultText style={styles.text}>Zöldség</DefaultText>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  width: 80,
+                }}
+              >
+                <DefaultText style={styles.text}>
+                  {
+                    LISTITEMS.filter((item) => {
+                      return filters[1].name === item.categoryId;
+                    }).length
+                  }
+                </DefaultText>
+                <DefaultText style={styles.text}>
+                  {Math.round(
+                    (LISTITEMS.filter((item) => {
+                      return filters[1].name === item.categoryId;
+                    }).length /
+                      LISTITEMS.length) *
+                      100
+                  )}
+                  %
+                </DefaultText>
+              </View>
             </View>
           </View>
-        </View>
+          <View style={styles.categoryContainer}>
+            <View
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: 10000,
+                backgroundColor: "orange",
+              }}
+            ></View>
+            <View style={styles.category}>
+              <DefaultText style={styles.text}>Édességek</DefaultText>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  width: 80,
+                }}
+              >
+                <DefaultText style={styles.text}>
+                  {
+                    LISTITEMS.filter((item) => {
+                      return filters[4].name === item.categoryId;
+                    }).length
+                  }
+                </DefaultText>
+                <DefaultText style={styles.text}>
+                  {Math.round(
+                    (LISTITEMS.filter((item) => {
+                      return filters[4].name === item.categoryId;
+                    }).length /
+                      LISTITEMS.length) *
+                      100
+                  )}
+                  %
+                </DefaultText>
+              </View>
+            </View>
+          </View>
+          <View style={styles.categoryContainer}>
+            <View
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: 10000,
+                backgroundColor: "blue",
+              }}
+            ></View>
+            <View style={styles.category}>
+              <DefaultText style={styles.text}>Egyéb</DefaultText>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  width: 80,
+                }}
+              >
+                <DefaultText style={styles.text}>
+                  {
+                    LISTITEMS.filter((item) => {
+                      return filters[5].name === item.categoryId;
+                    }).length
+                  }
+                </DefaultText>
+                <DefaultText style={styles.text}>
+                  {Math.round(
+                    (LISTITEMS.filter((item) => {
+                      return filters[5].name === item.categoryId;
+                    }).length /
+                      LISTITEMS.length) *
+                      100
+                  )}
+                  %
+                </DefaultText>
+              </View>
+            </View>
+          </View>
+        </ScrollView>
       </View>
     </View>
   );

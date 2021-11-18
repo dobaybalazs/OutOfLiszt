@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   SafeAreaView,
@@ -15,6 +15,7 @@ import DefaultText from "./texts/DefaultText";
 import QuantityButton from "./buttons/QuantityButton";
 
 const ItemCard = (props) => {
+  const [itemCount, setItemCount] = useState(props.quantity);
   const rightSwipe = (props) => {
     return (
       <View style={styles.deleteButtonContainer}>
@@ -32,6 +33,7 @@ const ItemCard = (props) => {
         <Swipeable
           renderRightActions={rightSwipe}
           containerStyle={{ flex: 1, width: "100%" }}
+          waitFor
         >
           <TouchableOpacity activeOpacity={0.6} onPress={props.onSelect}>
             <View style={styles.item}>
@@ -46,7 +48,8 @@ const ItemCard = (props) => {
               </View>
               <View
                 style={{
-                  flex: 6,
+                  flex: 7,
+                  width: "100%",
                   flexDirection: "row",
                   alignItems: "center",
                   justifyContent: "space-between",
@@ -54,11 +57,14 @@ const ItemCard = (props) => {
               >
                 <DefaultText style={styles.title}>{props.name}</DefaultText>
                 <DefaultText style={styles.quantity}>
-                  1 {props.unit}
+                  {itemCount} {props.unit}
                 </DefaultText>
               </View>
               <View style={{ flex: 1 }}>
-                <QuantityButton />
+                <QuantityButton
+                  currentQuantity={itemCount}
+                  setQuantity={setItemCount}
+                />
               </View>
             </View>
           </TouchableOpacity>

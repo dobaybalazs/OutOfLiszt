@@ -1,6 +1,9 @@
 import React from "react";
-import { StyleSheet, View, FlatList, ScrollView } from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import { useSelector } from "react-redux";
 
+import HeaderButton from "../components/buttons/HeaderButton";
 import Colors from "../constants/Colors";
 import UserButton from "../components/buttons/UserButton";
 import AddUserButton from "../components/buttons/AddUserButton";
@@ -8,9 +11,10 @@ import AddButton from "../components/buttons/AddButton";
 import DefaultText from "../components/texts/DefaultText";
 import DeleteButton from "../components/buttons/DeleteButton";
 import ItemCard from "../components/ItemCard";
-import { LISTITEMS, USERS } from "../data/dummy-data";
+import { USERS } from "../data/dummy-data";
 
 const ListItemsScreen = (props) => {
+  const allProducts = useSelector((state) => state.products.availableProducts);
   const users = props.navigation.getParam("listUsers");
   const products = props.navigation.getParam("listProducts");
   const currentUsers = [];
@@ -24,7 +28,7 @@ const ListItemsScreen = (props) => {
   const currentProducts = [];
   for (const product of products) {
     currentProducts.push(
-      LISTITEMS.find((element) => {
+      allProducts.find((element) => {
         return product === element.id;
       })
     );
@@ -35,6 +39,7 @@ const ListItemsScreen = (props) => {
         name={itemData.item.name}
         image={itemData.item.img}
         unit={itemData.item.unit}
+        quantity={itemData.item.itemCount}
         onSelect={() => {
           props.navigation.navigate({
             routeName: "ItemDetails",
@@ -122,6 +127,11 @@ ListItemsScreen.navigationOptions = (navData) => {
       backgroundColor: pageHeaderColor,
     },
     headerTintColor: Colors.whitecolor,
+    headerRight: () => (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item title="Done" iconName="checkmark" onPress={() => {}} />
+      </HeaderButtons>
+    ),
   };
 };
 

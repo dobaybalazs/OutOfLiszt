@@ -1,5 +1,5 @@
 class ListItem {
-  constructor(id, name, img, unit, price, categoryId, coldStorage) {
+  constructor(id, name, img, unit, price, categoryId, coldStorage, itemCount) {
     this.id = id;
     this.name = name;
     this.img = img;
@@ -7,6 +7,7 @@ class ListItem {
     this.price = price;
     this.categoryId = categoryId;
     this.coldStorage = coldStorage;
+    this.itemCount = itemCount;
   }
 }
 

@@ -6,14 +6,19 @@ import ItemCard from "../../components/ItemCard";
 import ItemFilter, { filters } from "../../components/ItemFilter";
 import Colors from "../../constants/Colors";
 import { LISTITEMS } from "../../data/dummy-data";
+import { useSelector } from "react-redux";
 
 const PantryScreen = (props) => {
+  const currentPantryItems = useSelector(
+    (state) => state.pantry.availablePantryProducts
+  );
   const NamedList = (itemData) => {
     return (
       <ItemCard
         name={itemData.item.name}
         image={itemData.item.img}
         unit={itemData.item.unit}
+        quantity={itemData.item.itemCount}
       />
     );
   };
@@ -36,7 +41,7 @@ const PantryScreen = (props) => {
             showsVerticalScrollIndicator={false}
             contentContainerStyle={styles.contentContainer}
             renderItem={NamedList}
-            data={LISTITEMS.filter((item) => {
+            data={currentPantryItems.filter((item) => {
               return (
                 activeFilter === item.categoryId && item.coldStorage === false
               );
@@ -54,6 +59,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  contentContainer: {
+    padding: 5,
   },
   header: {
     flex: 3,

@@ -6,6 +6,7 @@ import {
   ScrollView,
 } from "react-native";
 
+import DefaultList from "../models/defaultlist";
 import TitleText from "../components/texts/TitleText";
 import DefaultText from "../components/texts/DefaultText";
 import InputField from "../components/InputField";
@@ -13,8 +14,20 @@ import Sizes from "../constants/Sizes";
 import Colors from "../constants/Colors";
 import PriorityButton from "../components/buttons/PriorityButton";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useDispatch } from "react-redux";
+import * as listActions from "../store/actions/lists";
 
 const ListAdditionScreen = (props) => {
+  const newItem = new DefaultList(
+    "l4",
+    "Ünnepi uzsonna",
+    ["i2", "i3", "i4"],
+    [],
+    Colors.greencolor,
+    "Május",
+    7
+  );
+  const dispatch = useDispatch();
   return (
     <View style={styles.screen}>
       <KeyboardAvoidingView behavior={"height"}>
@@ -43,6 +56,7 @@ const ListAdditionScreen = (props) => {
               activeOpacity={Sizes.activeopacity}
               onPress={() => {
                 props.navigation.popToTop();
+                //dispatch(listActions.addToLists(newItem));
               }}
             >
               <View style={styles.topButton}>

@@ -9,7 +9,12 @@ const QuantityButton = (props) => {
   return (
     <View style={{ ...styles.buttonContainer, ...props.style }}>
       <View style={styles.topButton}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            var newQuantity = props.currentQuantity + 1;
+            props.setQuantity(newQuantity);
+          }}
+        >
           <Ionicons
             name="md-add"
             size={Sizes.iconsize}
@@ -18,7 +23,13 @@ const QuantityButton = (props) => {
         </TouchableOpacity>
       </View>
       <View style={styles.bottomButton}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            var newQuantity =
+              props.currentQuantity > 0 ? props.currentQuantity - 1 : 0;
+            props.setQuantity(newQuantity);
+          }}
+        >
           <Ionicons
             name="md-remove"
             size={Sizes.iconsize}

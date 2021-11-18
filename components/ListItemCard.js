@@ -43,16 +43,7 @@ const List = (props) => {
           </DefaultText>
         </View>
         <View style={styles.itemTitleContainer}>
-          <DefaultText
-            style={{
-              ...styles.itemTitle,
-              ...{
-                textDecorationLine: props.isDone ? "line-through" : "none",
-              },
-            }}
-          >
-            {props.title}
-          </DefaultText>
+          <DefaultText style={styles.itemTitle}>{props.title}</DefaultText>
         </View>
         <View style={styles.attachedUsersContainer}>
           <Foundation

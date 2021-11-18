@@ -1,6 +1,7 @@
 import DefaultList from "../models/defaultlist";
 import ListItem from "../models/listitem";
 import User from "../models/user";
+import Colors from "../constants/Colors";
 
 export const LISTITEMS = [
   new ListItem(
@@ -10,7 +11,8 @@ export const LISTITEMS = [
     "db",
     250,
     "edessegek",
-    false
+    false,
+    1
   ),
   new ListItem(
     "i2",
@@ -19,7 +21,8 @@ export const LISTITEMS = [
     "kg",
     600,
     "gyumolcs",
-    false
+    false,
+    1
   ),
   new ListItem(
     "i3",
@@ -27,8 +30,9 @@ export const LISTITEMS = [
     "https://cdn.picpng.com/milk/milk-picture-27385.png?fbclid=IwAR07-qjuPoSaXHvMXT1FYtUSgCs2A6DIHjonX8usi15QrFKIFTqsRw5GeVU",
     "l",
     "400",
-    "tejtermekek",
-    true
+    "tejtermek",
+    true,
+    1
   ),
   new ListItem(
     "i4",
@@ -37,16 +41,18 @@ export const LISTITEMS = [
     "db",
     "250",
     "husok",
-    true
+    true,
+    1
   ),
   new ListItem(
     "i5",
     "Margarin",
     "https://image-api.nosalty.hu/nosalty/images/ingredients/Zw/vz/6ZKPZ8iabXIkHAL7hJLZslmHCVeRT10zfo0BbhaL.jpeg?w=670&fit=crop&fm=webp&crop=%2C%2C%2C&h=460&s=b5b128e7d269ce2047f63cba5f3d08c1",
-    "kg", // 0.5 
+    "kg", // 0.5
     "610",
-    "tejtermekek",
-    true
+    "tejtermek",
+    true,
+    1
   ),
   new ListItem(
     "i6",
@@ -54,8 +60,9 @@ export const LISTITEMS = [
     "https://ocdn.eu/pulscms-transforms/1/xhKktkqTURBXy8zODU0NDBkNjFhNzU5NWZiZDJiZWIwNmZkZDIxMWQ5Yi5qcGVnkpUDACbNBADNAkCVAs0DUgDCww?fbclid=IwAR2AdbS0aXDjSBSPdM0KGS-Brvl3211eDNGExaT_JOl5DmXa05sgLbu6Xns",
     "kg",
     "500",
-    "tejtermekek",
-    true
+    "tejtermek",
+    true,
+    1
   ),
   new ListItem(
     "i7",
@@ -63,8 +70,9 @@ export const LISTITEMS = [
     "https://freight.cargo.site/i/37cc760e6c63a6591e874bd90c14f5c22afc16b227817a37310aedd4b5a04507/free-png-butter-png-images-transparent-butter-png-850_559.png?fbclid=IwAR31udGoLFe7NLrLufURWM7DiR3JfPOFjMxgJpeRtjjLPkx5CngkNh1QkIs",
     "kg", // 0.1
     "400",
-    "tejtermekek",
-    true
+    "tejtermek",
+    true,
+    1
   ),
   new ListItem(
     "i8",
@@ -72,8 +80,9 @@ export const LISTITEMS = [
     "https://media.istockphoto.com/photos/milk-or-cream-jug-isolated-on-white-background-picture-id1131111437?k=20&m=1131111437&s=612x612&w=0&h=023Fm70j1XBqxO6CrH5T9XpqFQD2dJthNThQHWMCSv0%3D&fbclid=IwAR2BtHUjKaJjfYrwD8a3qf6HJwDpWCwRfL-VGYOtjAPKMqN29BpGi0tmJB0",
     "l", // 0.2
     "389",
-    "tejtermekek",
-    false
+    "tejtermek",
+    false,
+    1
   ),
   new ListItem(
     "i9",
@@ -81,8 +90,9 @@ export const LISTITEMS = [
     "https://media.istockphoto.com/photos/milk-or-cream-jug-isolated-on-white-background-picture-id1131111437?k=20&m=1131111437&s=612x612&w=0&h=023Fm70j1XBqxO6CrH5T9XpqFQD2dJthNThQHWMCSv0%3D&fbclid=IwAR2BtHUjKaJjfYrwD8a3qf6HJwDpWCwRfL-VGYOtjAPKMqN29BpGi0tmJB0",
     "l", // 0.2
     "460",
-    "tejtermekek",
-    false
+    "tejtermek",
+    false,
+    1
   ),
   new ListItem(
     "i10",
@@ -90,8 +100,9 @@ export const LISTITEMS = [
     "https://www.justgotochef.com/uploads/1551180535-mascarpone%20cheese%20landing.png?fbclid=IwAR01CiX__U8rT_lvqv2xjPXozZfoY35bjgEn2Bk7qdeIFVGjGGMyk2biDos",
     "kg", // 0.5
     "1300",
-    "tejtermekek",
-    true
+    "tejtermek",
+    true,
+    1
   ),
   new ListItem(
     "i11",
@@ -99,8 +110,9 @@ export const LISTITEMS = [
     "https://images.eatthismuch.com/site_media/img/54_erin_m_044fe97f-90c7-4dfb-aaf0-0692a73e6292.png?fbclid=IwAR3VZiWRf5c0iJNw3LZjRp3ZiVbtp6K_T7rnNoHvl0umlJbTJrRrIGT-mfo",
     "l",
     "300",
-    "tejtermekek",
-    true
+    "tejtermek",
+    true,
+    1
   ),
   new ListItem(
     "i12",
@@ -108,8 +120,9 @@ export const LISTITEMS = [
     "https://www.mindmegette.hu/images/166/O/crop_201609230006_tojas.jpg?fbclid=IwAR30RB3FqthwGj9W_5TOBwHBqj6mZXADvFV-HnV_v_avi_r1wLwwcOm3B_8",
     "db",
     "45",
-    "egyéb",
-    true
+    "egyeb",
+    true,
+    1
   ),
   new ListItem(
     "i13",
@@ -118,7 +131,8 @@ export const LISTITEMS = [
     "kg",
     "1000",
     "tejtermek",
-    true
+    true,
+    1
   ),
   new ListItem(
     "i14",
@@ -127,7 +141,8 @@ export const LISTITEMS = [
     "kg",
     "1200",
     "husok",
-    true
+    true,
+    1
   ),
   new ListItem(
     "i15",
@@ -136,7 +151,8 @@ export const LISTITEMS = [
     "kg",
     "2200",
     "husok",
-    true
+    true,
+    1
   ),
   new ListItem(
     "i16",
@@ -145,7 +161,8 @@ export const LISTITEMS = [
     "kg",
     "1600",
     "husok",
-    true
+    true,
+    1
   ),
   new ListItem(
     "i17",
@@ -154,7 +171,8 @@ export const LISTITEMS = [
     "kg",
     "1200",
     "husok",
-    true
+    true,
+    1
   ),
   new ListItem(
     "i18",
@@ -163,7 +181,8 @@ export const LISTITEMS = [
     "kg",
     "700",
     "husok",
-    true
+    true,
+    1
   ),
   new ListItem(
     "i19",
@@ -172,7 +191,8 @@ export const LISTITEMS = [
     "kg",
     "799",
     "husok",
-    true
+    true,
+    1
   ),
   new ListItem(
     "i20",
@@ -181,7 +201,8 @@ export const LISTITEMS = [
     "kg",
     "2750",
     "gyumolcs",
-    true
+    true,
+    1
   ),
   new ListItem(
     "i21",
@@ -190,7 +211,8 @@ export const LISTITEMS = [
     "db",
     "299",
     "zoldseg",
-    true
+    true,
+    1
   ),
   new ListItem(
     "i22",
@@ -199,7 +221,8 @@ export const LISTITEMS = [
     "kg",
     "325",
     "zoldseg",
-    false
+    false,
+    1
   ),
   new ListItem(
     "i23",
@@ -208,7 +231,8 @@ export const LISTITEMS = [
     "kg",
     "599",
     "gyumolcs",
-    false
+    false,
+    1
   ),
   new ListItem(
     "i24",
@@ -217,7 +241,8 @@ export const LISTITEMS = [
     "kg",
     "249",
     "gyumolcs",
-    false
+    false,
+    1
   ),
   new ListItem(
     "i25",
@@ -226,7 +251,8 @@ export const LISTITEMS = [
     "kg",
     "259",
     "egyeb",
-    false
+    false,
+    1
   ),
   new ListItem(
     "i26",
@@ -235,7 +261,8 @@ export const LISTITEMS = [
     "kg",
     "279",
     "egyeb",
-    false
+    false,
+    1
   ),
   new ListItem(
     "i27",
@@ -244,7 +271,8 @@ export const LISTITEMS = [
     "kg",
     "319",
     "egyeb",
-    false
+    false,
+    1
   ),
   new ListItem(
     "i28",
@@ -253,7 +281,8 @@ export const LISTITEMS = [
     "kg",
     "699",
     "gyumolcs",
-    false
+    false,
+    1
   ),
   new ListItem(
     "i29",
@@ -262,7 +291,8 @@ export const LISTITEMS = [
     "kg",
     "169",
     "zoldseg",
-    false
+    false,
+    1
   ),
   new ListItem(
     "i30",
@@ -271,7 +301,8 @@ export const LISTITEMS = [
     "db",
     "299",
     "zoldseg",
-    true
+    true,
+    1
   ),
   new ListItem(
     "i31",
@@ -280,7 +311,8 @@ export const LISTITEMS = [
     "kg",
     "540",
     "gyumolcs",
-    false
+    false,
+    1
   ),
   new ListItem(
     "i32",
@@ -289,7 +321,8 @@ export const LISTITEMS = [
     "kg",
     "575",
     "gyumolcs",
-    true
+    true,
+    1
   ),
   new ListItem(
     "i33",
@@ -298,7 +331,8 @@ export const LISTITEMS = [
     "kg",
     "695",
     "gyumolcs",
-    true
+    true,
+    1
   ),
   new ListItem(
     "i34",
@@ -307,7 +341,8 @@ export const LISTITEMS = [
     "kg",
     "170",
     "gyumolcs",
-    true
+    true,
+    1
   ),
   new ListItem(
     "i35",
@@ -316,7 +351,8 @@ export const LISTITEMS = [
     "kg",
     "1000",
     "zoldseg",
-    true
+    true,
+    1
   ),
   new ListItem(
     "i36",
@@ -325,16 +361,18 @@ export const LISTITEMS = [
     "db",
     "500",
     "husok",
-    true
+    true,
+    1
   ),
   new ListItem(
     "i37",
-    "Csiperke gomba",
+    "Csiperkék",
     "https://www.kifli.hu/cdn-cgi/image/f=auto,w=500,h=500/https://cdn.kifli.hu/images/grocery/products/36235/36235-1585037345.jpg?fbclid=IwAR0l_PES16s-PA1dwBv289ts6tRCnISOdcpdGqxGtRCgBz28vHphuqGvvz8",
     "kg",
     "1200",
     "zoldseg",
-    true
+    true,
+    1
   ),
   new ListItem(
     "i38",
@@ -343,14 +381,15 @@ export const LISTITEMS = [
     "kg",
     "800",
     "zoldseg",
-    true
+    true,
+    1
   ),
 ];
 export const USERS = [
   new User(
     "u1",
     "Molnár Ákos",
-    "testvér",
+    "Testvér",
     "https://kep.cdn.index.hu/1/0/723/7234/72345/7234513_ca4a011d0d0e254a0cb1b0897055d8be_wm.jpg",
     25,
     "male"
@@ -358,7 +397,7 @@ export const USERS = [
   new User(
     "u2",
     "Molnár Tamara",
-    "nővér",
+    "Nővér",
     "https://static.marquardmedia.hu/data/cikk/234/234174-hedinke-szabo-hedi.640.jpg",
     17,
     "female"
@@ -373,39 +412,41 @@ export const USERS = [
   ),
 ];
 
-export const DEFAULTLIST = [
+export const DEFAULTLISTS = [
   new DefaultList(
     "l1",
     "Ünnepi ebéd",
     ["i1", "i2", "i3", "i4"],
     ["u1"],
-    "red",
-    "Április 15"
+    Colors.redcolor,
+    "Április",
+    15
   ),
   new DefaultList(
     "l2",
     "Ünnepi vacsora",
     ["i1", "i2", "i3"],
-    ["u1", "u2"],
-    "green",
-    "Április 16"
+    ["u1", "u2", "u3"],
+    Colors.greencolor,
+    "Április",
+    16
   ),
   new DefaultList(
     "l3",
     "Ünnepi reggeli",
     ["i1", "i3", "i4"],
     ["u2"],
-    "blue",
-    "Március 15"
+    Colors.bluecolor,
+    "Március",
+    15
   ),
   new DefaultList(
     "l4",
     "Ünnepi uzsonna",
     ["i2", "i3", "i4"],
     [],
-    Colors.primarygray,
+    Colors.greencolor,
     "Május",
-    7,
-    12
+    7
   ),
 ];

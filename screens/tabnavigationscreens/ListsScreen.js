@@ -3,15 +3,16 @@ import { StyleSheet, View, FlatList } from "react-native";
 
 import ListItemCard from "../../components/ListItemCard";
 import AddButton from "../../components/buttons/AddButton";
-import { DEFAULTLISTS } from "../../data/dummy-data";
+import { useSelector } from "react-redux";
 
 const ListsScreen = (props) => {
+  const currentList = useSelector((state) => state.lists.availableLists);
   const renderListElement = (itemData) => {
     return (
       <ListItemCard
         color={itemData.item.priority}
         title={itemData.item.name}
-        itemCount={itemData.item.itemCount}
+        itemCount={itemData.item.products.length}
         dateDay={itemData.item.dateDay}
         dateMonth={itemData.item.dateMonth}
         users={itemData.item.users}
@@ -36,7 +37,7 @@ const ListsScreen = (props) => {
       <View style={styles.body}>
         <FlatList
           keyExtractor={(item, index) => item.id}
-          data={DEFAULTLISTS}
+          data={currentList}
           renderItem={renderListElement}
           showsVerticalScrollIndicator={false}
         />

@@ -1,14 +1,5 @@
 class DefaultList {
-  constructor(
-    id,
-    name,
-    products,
-    users,
-    priority,
-    dateMonth,
-    dateDay,
-    itemCount
-  ) {
+  constructor(id, name, products, users, priority, dateMonth, dateDay) {
     this.id = id;
     this.name = name;
     this.products = products;
@@ -16,7 +7,6 @@ class DefaultList {
     this.priority = priority;
     this.dateMonth = dateMonth;
     this.dateDay = dateDay;
-    this.itemCount = itemCount;
   }
 }
 

@@ -5,16 +5,20 @@ import Colors from "../../constants/Colors";
 import Header from "../../components/Header";
 import ItemCard from "../../components/ItemCard";
 import ItemFilter, { filters } from "../../components/ItemFilter";
-import { LISTITEMS } from "../../data/dummy-data";
 import { FlatList } from "react-native-gesture-handler";
+import { useSelector } from "react-redux";
 
 const RefrigeratorScreen = (props) => {
+  const currentFridgeItems = useSelector(
+    (state) => state.fridge.availableFridgeProducts
+  );
   const NamedList = (itemData) => {
     return (
       <ItemCard
         name={itemData.item.name}
         image={itemData.item.img}
         unit={itemData.item.unit}
+        quantity={itemData.item.itemCount}
       />
     );
   };
@@ -37,7 +41,7 @@ const RefrigeratorScreen = (props) => {
             showsVerticalScrollIndicator={false}
             contentContainerStyle={styles.contentContainer}
             renderItem={NamedList}
-            data={LISTITEMS.filter((item) => {
+            data={currentFridgeItems.filter((item) => {
               return (
                 activeFilter === item.categoryId && item.coldStorage === true
               );
