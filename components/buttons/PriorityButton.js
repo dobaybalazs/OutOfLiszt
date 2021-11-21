@@ -8,7 +8,10 @@ import Sizes from "../../constants/Sizes";
 const PriorityButton = (props) => {
   return (
     <View style={styles.buttonContainer}>
-      <TouchableOpacity activeOpacity={Sizes.activeopacity}>
+      <TouchableOpacity
+        activeOpacity={Sizes.activeopacity}
+        onPress={props.onSelect}
+      >
         <View
           style={{ ...styles.button, ...{ backgroundColor: props.color } }}
         ></View>
