@@ -30,6 +30,7 @@ const LoginScreen = (props) => {
               onChange={(v) => setEmail(v)}
             />
             <InputField
+              secureTextEntry={true}
               placeholder="Password"
               value={pw}
               onChange={(v) => setPw(v)}

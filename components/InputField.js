@@ -9,7 +9,13 @@ const InputField = (props) => {
   return (
     <View style={styles.container}>
       <DefaultText style={styles.title}>{props.title}</DefaultText>
-      <TextInput style={styles.input} placeholder={props.placeholder} value={props.value} onChangeText={props.onChange}></TextInput>
+      <TextInput
+        secureTextEntry={props.secureTextEntry}
+        style={styles.input}
+        placeholder={props.placeholder}
+        value={props.value}
+        onChangeText={props.onChange}
+      ></TextInput>
     </View>
   );
 };
