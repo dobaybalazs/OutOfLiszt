@@ -397,7 +397,7 @@ export const USERS = [
   new User(
     "u2",
     "Molnár Tamara",
-    "Nővér",
+    "Lánytestvér",
     "https://static.marquardmedia.hu/data/cikk/234/234174-hedinke-szabo-hedi.640.jpg",
     17,
     "female"

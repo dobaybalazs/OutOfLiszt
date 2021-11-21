@@ -6,7 +6,7 @@ import AddButton from "../../components/buttons/AddButton";
 import { useSelector } from "react-redux";
 
 const ListsScreen = (props) => {
-  const currentList = useSelector((state) => state.lists.availableLists);
+  const currentList = useSelector((state) => state.lists.userLists);
   const renderListElement = (itemData) => {
     return (
       <ListItemCard
