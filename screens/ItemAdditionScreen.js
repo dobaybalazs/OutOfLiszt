@@ -1,90 +1,38 @@
-import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-  ScrollView,
-  Switch,
-} from "react-native";
+import React from "react";
+import { StyleSheet, View, FlatList } from "react-native";
 
-import TitleText from "../components/texts/TitleText";
-import DefaultText from "../components/texts/DefaultText";
-import InputField from "../components/InputField";
-import Sizes from "../constants/Sizes";
+import AddItemCard from "../components/AddItemCard";
 import Colors from "../constants/Colors";
+import { useSelector } from "react-redux";
 
 const ItemAdditionScreen = (props) => {
-  const [isColdStorage, setColdStorage] = useState(false);
+  const currentItems = useSelector((state) => state.products.availableProducts);
+  const renderListItem = (itemData) => {
+    return <AddItemCard img={itemData.item.img} name={itemData.item.name} />;
+  };
   return (
     <View style={styles.screen}>
-      <KeyboardAvoidingView style={{ width: "85%" }} behavior={"height"}>
-        <ScrollView
-          style={{ width: "100%" }}
+      <View style={styles.body}>
+        <FlatList
+          numColumns={2}
+          renderItem={renderListItem}
+          data={currentItems}
           showsVerticalScrollIndicator={false}
-        >
-          <View style={styles.body}>
-            <View style={styles.inputContainer}>
-              <InputField title="Termék neve" />
-              <InputField title="Termék képe" />
-              <InputField title="Termékkategória" />
-              <InputField title="Termék egység" />
-              <InputField title="Termék ára" />
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <DefaultText
-                  style={{ color: Colors.primarygray, fontSize: 20 }}
-                >
-                  Hűtőben tárolandó?
-                </DefaultText>
-                <Switch
-                  trackColor={{
-                    true: Colors.bluecolor,
-                    false: Colors.primarygray,
-                  }}
-                  thumbColor={isColdStorage ? "blue" : Colors.secondarygray}
-                  value={isColdStorage}
-                  onValueChange={(newValue) => setColdStorage(newValue)}
-                />
-              </View>
-            </View>
-          </View>
-          <View style={styles.footer}>
-            <TouchableOpacity
-              activeOpacity={Sizes.activeopacity}
-              onPress={() => {
-                props.navigation.goBack();
-              }}
-            >
-              <View style={styles.topButton}>
-                <DefaultText style={styles.topButtonText}>
-                  Hozzáadás
-                </DefaultText>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={Sizes.activeopacity}
-              onPress={() => {
-                props.navigation.goBack();
-              }}
-            >
-              <View style={styles.bottomButton}>
-                <DefaultText style={styles.bottomButtonText}>
-                  Elvetés
-                </DefaultText>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
+        />
+      </View>
     </View>
   );
+};
+
+ItemAdditionScreen.navigationOptions = (navData) => {
+  const headerColor = navData.navigation.getParam("headerColor");
+  return {
+    headerTitle: "Add Item",
+    headerStyle: {
+      backgroundColor: headerColor,
+    },
+    headerTintColor: Colors.whitecolor,
+  };
 };
 
 const styles = StyleSheet.create({
@@ -98,38 +46,7 @@ const styles = StyleSheet.create({
   body: {
     marginTop: 40,
     flex: 4,
-    width: "100%",
     alignItems: "center",
-  },
-  footer: {
-    flex: 1,
-    width: "100%",
-    alignItems: "center",
-  },
-  inputContainer: {
-    flex: 1,
-    width: "100%",
-  },
-  topButton: {
-    width: 300,
-    backgroundColor: Colors.bluecolor,
-    borderRadius: 40,
-    alignItems: "center",
-    justifyContent: "center",
-    height: 50,
-    marginTop: 20,
-  },
-  topButtonText: {
-    fontSize: Sizes.titlefontsize,
-    color: Colors.whitecolor,
-  },
-  bottomButton: {
-    width: 100,
-    alignItems: "center",
-  },
-  bottomButtonText: {
-    fontSize: Sizes.titlefontsize,
-    color: Colors.primarygray,
   },
 });
 

@@ -109,6 +109,9 @@ const ListItemsScreen = (props) => {
             onSelect={() => {
               props.navigation.navigate({
                 routeName: "ItemAddition",
+                params: {
+                  headerColor: props.navigation.getParam("pageHeaderColor"),
+                },
               });
             }}
           />

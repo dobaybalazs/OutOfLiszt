@@ -55,13 +55,6 @@ const ListsNavigator = createStackNavigator(
     },
     ItemAddition: {
       screen: ItemAdditionScreen,
-      navigationOptions: {
-        headerTitle: "Out of liszt",
-        headerStyle: {
-          backgroundColor: Colors.whitecolor,
-        },
-        headerTintColor: Colors.secondarygray,
-      },
     },
     ItemDetails: {
       screen: ItemDetailScreen,
