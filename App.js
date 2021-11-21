@@ -24,11 +24,10 @@ import {
 } from "firebase/auth";
 
 export const firebase = initializeApp(firebaseConfig);
-const auth = getAuth();
+export const auth = getAuth(firebase);
 const initialUser = null;
 
 function login(email, password) {
-  console.log(email, password);
   return signInWithEmailAndPassword(auth, email, password);
 }
 

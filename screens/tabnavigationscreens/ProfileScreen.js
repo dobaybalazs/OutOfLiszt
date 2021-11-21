@@ -1,9 +1,16 @@
 import React from "react";
-import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
-
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import Colors from "../../constants/Colors";
 import Sizes from "../../constants/Sizes";
 import DefaultText from "../../components/texts/DefaultText";
+import { signOut } from "firebase/auth";
+import { auth } from "../../App";
+
+function logout() { 
+  return signOut(auth).then(() => {
+  // Sign-out successful.
+  })
+}
 
 const ProfileScreen = (props) => {
   return (
@@ -41,6 +48,10 @@ const ProfileScreen = (props) => {
           </View>
         </TouchableOpacity>
       </View>
+      <Text>ProfileScreen</Text>
+      <TouchableOpacity onPress={logout}>
+        <Text>Logout</Text>
+        </TouchableOpacity>
     </View>
   );
 };
