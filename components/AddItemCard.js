@@ -4,10 +4,22 @@ import { StyleSheet, View, TouchableOpacity, Image } from "react-native";
 import DefaultText from "./texts/DefaultText";
 import Sizes from "../constants/Sizes";
 import Colors from "../constants/Colors";
+import { useDispatch } from "react-redux";
+import * as listActions from "../store/actions/lists";
 
 const AddItemCard = (props) => {
+  const dispatch = useDispatch();
   return (
-    <TouchableOpacity activeOpacity={Sizes.activeopacity}>
+    <TouchableOpacity
+      activeOpacity={Sizes.activeopacity}
+      onPress={() => {
+        const returnedPair = {
+          listId: props.listId,
+          productId: props.itemId,
+        };
+        dispatch(listActions.addToListProducts(returnedPair));
+      }}
+    >
       <View style={styles.card}>
         <View style={styles.content}>
           <View style={styles.image}>

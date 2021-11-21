@@ -6,9 +6,17 @@ import Colors from "../constants/Colors";
 import { useSelector } from "react-redux";
 
 const ItemAdditionScreen = (props) => {
+  const currentListId = props.navigation.getParam("listId");
   const currentItems = useSelector((state) => state.products.availableProducts);
   const renderListItem = (itemData) => {
-    return <AddItemCard img={itemData.item.img} name={itemData.item.name} />;
+    return (
+      <AddItemCard
+        img={itemData.item.img}
+        name={itemData.item.name}
+        itemId={itemData.item.id}
+        listId={currentListId}
+      />
+    );
   };
   return (
     <View style={styles.screen}>

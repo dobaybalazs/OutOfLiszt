@@ -111,6 +111,7 @@ const ListItemsScreen = (props) => {
                 routeName: "ItemAddition",
                 params: {
                   headerColor: props.navigation.getParam("pageHeaderColor"),
+                  listId: props.navigation.getParam("listId"),
                 },
               });
             }}

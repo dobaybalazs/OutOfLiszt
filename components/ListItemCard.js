@@ -6,6 +6,7 @@ import { Foundation } from "@expo/vector-icons";
 import DefaultText from "./texts/DefaultText";
 import Sizes from "../constants/Sizes";
 import { USERS } from "../data/dummy-data";
+import { useSelector } from "react-redux";
 
 const List = (props) => {
   const Users = ({ userData }) => {

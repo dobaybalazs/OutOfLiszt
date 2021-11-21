@@ -82,26 +82,28 @@ const ListAdditionScreen = (props) => {
               activeOpacity={Sizes.activeopacity}
               onPress={() => {
                 props.navigation.popToTop();
-                const users = listUsers.split(",");
-                const userList = [];
-                for (const user of users) {
-                  userList.push(
-                    USERS.find((item) => {
-                      return user === item.username;
-                    }).id
+                if (listName !== "" && listUsers !== "" && listDate !== "") {
+                  const users = listUsers.split(",");
+                  const userList = [];
+                  for (const user of users) {
+                    userList.push(
+                      USERS.find((item) => {
+                        return user === item.username;
+                      }).id
+                    );
+                  }
+                  const id = "l" + (Math.random() * 100).toString();
+                  const newItem = new DefaultList(
+                    id,
+                    listName,
+                    ["i2", "i3", "i4", "i5"],
+                    userList,
+                    listPriority,
+                    listDate.split(" ")[0],
+                    parseInt(listDate.split(" ")[1])
                   );
+                  dispatch(listActions.addToLists(newItem));
                 }
-                const id = "l" + (Math.random() * 100).toString();
-                const newItem = new DefaultList(
-                  id,
-                  listName,
-                  ["i2", "i3", "i4", "i5"],
-                  userList,
-                  listPriority,
-                  listDate.split(" ")[0],
-                  parseInt(listDate.split(" ")[1])
-                );
-                dispatch(listActions.addToLists(newItem));
               }}
             >
               <View style={styles.topButton}>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, FlatList } from "react-native";
 
 import ListItemCard from "../../components/ListItemCard";
@@ -12,15 +12,16 @@ const ListsScreen = (props) => {
       <ListItemCard
         color={itemData.item.priority}
         title={itemData.item.name}
-        itemCount={itemData.item.products.length}
         dateDay={itemData.item.dateDay}
         dateMonth={itemData.item.dateMonth}
         users={itemData.item.users}
         style={styles.listitem}
+        itemCount={itemData.item.products.length}
         onSelect={() => {
           props.navigation.navigate({
             routeName: "ListItems",
             params: {
+              listId: itemData.item.id,
               listUsers: itemData.item.users,
               listTitle: itemData.item.name,
               pageHeaderColor: itemData.item.priority,
