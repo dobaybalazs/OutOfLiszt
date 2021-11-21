@@ -6,10 +6,10 @@ import DefaultText from "../../components/texts/DefaultText";
 import { signOut } from "firebase/auth";
 import { auth } from "../../App";
 
-function logout() { 
+function logout() {
   return signOut(auth).then(() => {
-  // Sign-out successful.
-  })
+    // Sign-out successful.
+  });
 }
 
 const ProfileScreen = (props) => {
@@ -40,7 +40,10 @@ const ProfileScreen = (props) => {
         <View style={styles.field}>
           <DefaultText style={styles.text}>Nem</DefaultText>
         </View>
-        <TouchableOpacity activeOpacity={Sizes.activeopacity}>
+        <TouchableOpacity
+          activeOpacity={Sizes.activeopacity}
+          style={{ marginTop: 35 }}
+        >
           <View style={styles.Button}>
             <DefaultText style={styles.ButtonText}>
               Profil szerkesztése
@@ -48,10 +51,22 @@ const ProfileScreen = (props) => {
           </View>
         </TouchableOpacity>
       </View>
-      <Text>ProfileScreen</Text>
-      <TouchableOpacity onPress={logout}>
-        <Text>Logout</Text>
+      <View
+        style={{
+          flex: 1,
+          width: "100%",
+          backgroundColor: "#fff",
+          alignItems: "center",
+        }}
+      >
+        <TouchableOpacity onPress={logout}>
+          <View style={{ width: 200, alignItems: "center" }}>
+            <Text style={{ fontSize: 20, color: Colors.primarygray }}>
+              Logout
+            </Text>
+          </View>
         </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -77,7 +92,7 @@ const styles = StyleSheet.create({
     height: 120,
   },
   header: {
-    flex: 3,
+    flex: 4,
     width: "100%",
     backgroundColor: Colors.bluecolor,
     alignItems: "center",
@@ -85,7 +100,7 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
   },
   body: {
-    flex: 7,
+    flex: 8,
     width: "100%",
     backgroundColor: "white",
     borderTopRightRadius: 35,
