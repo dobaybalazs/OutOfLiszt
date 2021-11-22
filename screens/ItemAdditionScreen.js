@@ -15,6 +15,9 @@ const ItemAdditionScreen = (props) => {
         name={itemData.item.name}
         itemId={itemData.item.id}
         listId={currentListId}
+        onSelect={() => {
+          return props.navigation.goBack();
+        }}
       />
     );
   };

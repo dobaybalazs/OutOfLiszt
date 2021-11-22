@@ -18,6 +18,7 @@ const AddItemCard = (props) => {
           productId: props.itemId,
         };
         dispatch(listActions.addToListProducts(returnedPair));
+        props.onSelect();
       }}
     >
       <View style={styles.card}>

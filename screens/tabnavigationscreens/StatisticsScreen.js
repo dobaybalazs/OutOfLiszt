@@ -8,90 +8,181 @@ import { LISTITEMS } from "../../data/dummy-data";
 import { filters } from "../../components/ItemFilter";
 
 const StatisticsScreen = (props) => {
+  const radius = 100;
+  const strokewidth = 12;
+  const halfcircle = radius + strokewidth;
+  const circleCircumference = 2 * Math.PI * radius;
   return (
     <View style={styles.screen}>
       <View style={styles.header}>
         <DefaultText style={{ fontSize: 24 }}>Statisztika</DefaultText>
       </View>
       <View style={styles.chart}>
-        <SVG width={250} height={250} viewBox={`0 0 100 100`}>
+        <SVG
+          width={radius * 2}
+          height={radius * 2}
+          viewBox={`0 0 ${halfcircle * 2} ${halfcircle * 2}`}
+        >
           <G>
-            <Circle
-              cx="50%"
-              cy="50%"
-              stroke={Colors.redcolor}
-              strokeWidth={6}
-              r={40}
-              strokeOpacity={1.0}
-            />
-
-            <Circle
-              cx="50%"
-              cy="50%"
-              stroke="yellow"
-              strokeWidth={6}
-              r={40}
-              strokeOpacity={1.0}
-              strokeDasharray={2 * Math.PI * 40}
-              strokeDashoffset={(2 * Math.PI * 40) / 3}
-              strokeLinecap="square"
-            />
-            <Circle
-              cx="50%"
-              cy="50%"
-              stroke={Colors.bluecolor}
-              strokeWidth={6}
-              r={40}
-              strokeOpacity={1.0}
-              strokeDasharray={2 * Math.PI * 40}
-              strokeDashoffset={(2 * Math.PI * 40) / 2}
-              strokeLinecap="square"
-            />
-            <Circle
-              cx="50%"
-              cy="50%"
-              stroke={Colors.greencolor}
-              strokeWidth={6}
-              r={40}
-              strokeOpacity={1.0}
-              strokeDasharray={2 * Math.PI * 40}
-              strokeDashoffset={(3 * Math.PI * 40) / 2}
-              strokeLinecap="square"
-            />
+            <G rotation="-90" origin={`${halfcircle}, ${halfcircle}`}>
+              <Circle
+                cx="50%"
+                cy="50%"
+                stroke={Colors.redcolor}
+                strokeWidth={strokewidth}
+                r={radius}
+                strokeOpacity={1.0}
+              />
+              <Circle
+                cx="50%"
+                cy="50%"
+                stroke="blue"
+                strokeWidth={strokewidth}
+                r={radius}
+                strokeOpacity={1.0}
+                strokeDasharray={circleCircumference}
+                strokeDashoffset={
+                  circleCircumference -
+                  (circleCircumference *
+                    (LISTITEMS.filter((item) => {
+                      return filters[1].name === item.categoryId;
+                    }).length +
+                      LISTITEMS.filter((item) => {
+                        return filters[2].name === item.categoryId;
+                      }).length +
+                      LISTITEMS.filter((item) => {
+                        return filters[3].name === item.categoryId;
+                      }).length +
+                      LISTITEMS.filter((item) => {
+                        return filters[4].name === item.categoryId;
+                      }).length +
+                      LISTITEMS.filter((item) => {
+                        return filters[5].name === item.categoryId;
+                      }).length)) /
+                    LISTITEMS.length
+                }
+              />
+              <Circle
+                cx="50%"
+                cy="50%"
+                stroke="orange"
+                strokeWidth={strokewidth}
+                r={radius}
+                strokeOpacity={1.0}
+                strokeDasharray={circleCircumference}
+                strokeDashoffset={
+                  circleCircumference -
+                  (circleCircumference *
+                    (LISTITEMS.filter((item) => {
+                      return filters[1].name === item.categoryId;
+                    }).length +
+                      LISTITEMS.filter((item) => {
+                        return filters[2].name === item.categoryId;
+                      }).length +
+                      LISTITEMS.filter((item) => {
+                        return filters[3].name === item.categoryId;
+                      }).length +
+                      LISTITEMS.filter((item) => {
+                        return filters[4].name === item.categoryId;
+                      }).length)) /
+                    LISTITEMS.length
+                }
+              />
+              <Circle
+                cx="50%"
+                cy="50%"
+                stroke="yellow"
+                strokeWidth={strokewidth}
+                r={radius}
+                strokeOpacity={1.0}
+                strokeDasharray={circleCircumference}
+                strokeDashoffset={
+                  circleCircumference -
+                  (circleCircumference *
+                    (LISTITEMS.filter((item) => {
+                      return filters[1].name === item.categoryId;
+                    }).length +
+                      LISTITEMS.filter((item) => {
+                        return filters[2].name === item.categoryId;
+                      }).length +
+                      LISTITEMS.filter((item) => {
+                        return filters[3].name === item.categoryId;
+                      }).length)) /
+                    LISTITEMS.length
+                }
+              />
+              <Circle
+                cx="50%"
+                cy="50%"
+                stroke={Colors.greencolor}
+                strokeWidth={strokewidth}
+                r={radius}
+                strokeOpacity={1.0}
+                strokeDasharray={circleCircumference}
+                strokeDashoffset={
+                  circleCircumference -
+                  (circleCircumference *
+                    (LISTITEMS.filter((item) => {
+                      return filters[1].name === item.categoryId;
+                    }).length +
+                      LISTITEMS.filter((item) => {
+                        return filters[2].name === item.categoryId;
+                      }).length)) /
+                    LISTITEMS.length
+                }
+              />
+              <Circle
+                cx="50%"
+                cy="50%"
+                stroke={Colors.bluecolor}
+                strokeWidth={strokewidth}
+                r={radius}
+                strokeOpacity={1.0}
+                strokeDasharray={circleCircumference}
+                strokeDashoffset={
+                  circleCircumference -
+                  (circleCircumference *
+                    LISTITEMS.filter((item) => {
+                      return filters[1].name === item.categoryId;
+                    }).length) /
+                    LISTITEMS.length
+                }
+              />
+            </G>
             <Text
-              x="42%"
-              y="45%"
+              x="40%"
+              y="50%"
               text-anchor="middle"
               stroke="none"
               dy=".1em"
-              fontSize={14}
+              fontSize={35}
               alignment-baseline="middle"
               fill={Colors.secondarygray}
             >
               {LISTITEMS.length}
             </Text>
             <Text
-              x="28%"
-              y="55%"
+              x="20%"
+              y="62%"
               text-anchor="middle"
               stroke="none"
               fill={Colors.secondarygray}
               stroke-width="2px"
               dy=".1em"
-              fontSize={8}
+              fontSize={23}
               alignment-baseline="middle"
             >
               Megvásárolt
             </Text>
             <Text
-              x="38%"
-              y="65%"
+              x="32%"
+              y="74%"
               text-anchor="middle"
               stroke="none"
               fill={Colors.secondarygray}
               stroke-width="2px"
               dy=".1em"
-              fontSize={8}
+              fontSize={23}
               alignment-baseline="middle"
             >
               termék
