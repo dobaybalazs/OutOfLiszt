@@ -15,8 +15,12 @@ import { USERS } from "../data/dummy-data";
 
 const ListItemsScreen = (props) => {
   const allProducts = useSelector((state) => state.products.availableProducts);
+  const currentList = useSelector((state) =>
+    state.lists.userLists.find(
+      (list) => list.id === props.navigation.getParam("listId")
+    )
+  );
   const users = props.navigation.getParam("listUsers");
-  const products = props.navigation.getParam("listProducts");
   const currentUsers = [];
   for (const user of users) {
     currentUsers.push(
@@ -25,30 +29,28 @@ const ListItemsScreen = (props) => {
       })
     );
   }
-  const currentProducts = [];
-  for (const product of products) {
-    currentProducts.push(
-      allProducts.find((element) => {
-        return product === element.id;
-      })
-    );
-  }
   const renderListItem = (itemData) => {
+    const currentProduct = allProducts.find(
+      (item) => item.id === itemData.item
+    );
+    if (!currentProduct) {
+      return null;
+    }
     return (
       <ItemCard
-        name={itemData.item.name}
-        image={itemData.item.img}
-        unit={itemData.item.unit}
-        quantity={itemData.item.itemCount}
+        name={currentProduct.name}
+        image={currentProduct.img}
+        unit={currentProduct.unit}
+        quantity={currentProduct.itemCount}
         onSelect={() => {
           props.navigation.navigate({
             routeName: "ItemDetails",
             params: {
-              itemName: itemData.item.name,
-              itemImage: itemData.item.img,
-              itemUnit: itemData.item.unit,
-              itemPrice: itemData.item.price,
-              itemCategoryId: itemData.item.categoryId,
+              itemName: currentProduct.name,
+              itemImage: currentProduct.img,
+              itemUnit: currentProduct.unit,
+              itemPrice: currentProduct.price,
+              itemCategoryId: currentProduct.categoryId,
               itemPageColor: props.navigation.getParam("pageHeaderColor"),
               itemPageTitle: props.navigation.getParam("listTitle"),
             },
@@ -98,8 +100,8 @@ const ListItemsScreen = (props) => {
             showsVerticalScrollIndicator={false}
             contentContainerStyle={styles.contentContainer}
             renderItem={renderListItem}
-            data={currentProducts}
-            keyExtractor={(item, index) => item.id}
+            data={currentList.products}
+            keyExtractor={(item, index) => item}
             style={{ marginHorizontal: 15 }}
           />
         </View>

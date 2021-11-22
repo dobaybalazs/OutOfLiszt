@@ -16,7 +16,9 @@ const ItemAdditionScreen = (props) => {
         itemId={itemData.item.id}
         listId={currentListId}
         onSelect={() => {
-          return props.navigation.goBack();
+          return props.navigation.navigate({
+            routeName: "ListItems",
+          });
         }}
       />
     );

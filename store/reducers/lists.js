@@ -25,10 +25,15 @@ export default (state = initialState, action) => {
         }) === -1
       ) {
         const newProductsList = [...editedList.products, addedItem.productId];
-        state.userLists.find((list) => {
-          return list.id === addedItem.listId;
-        }).products = newProductsList;
-        return state;
+        return {
+          ...state,
+          userLists: state.userLists.map((ul) => {
+            if (ul.id === addedItem.listId) {
+              return { ...ul, products: newProductsList };
+            }
+            return ul;
+          }),
+        };
       }
       return state;
   }
