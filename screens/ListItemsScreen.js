@@ -34,7 +34,7 @@ const ListItemsScreen = (props) => {
     const usersList = currentList.users;
     const renderListItem = (itemData) => {
       const currentProduct = allProducts.find(
-        (item) => item.id === itemData.item
+        (item) => item.id === itemData.item.id
       );
       if (!currentProduct) {
         return null;
@@ -44,7 +44,7 @@ const ListItemsScreen = (props) => {
           name={currentProduct.name}
           image={currentProduct.img}
           unit={currentProduct.unit}
-          quantity={currentProduct.itemCount}
+          quantity={itemData.item.count}
           itemId={currentProduct.id}
           listId={currentList.id}
           isInList={true}
@@ -134,7 +134,7 @@ const ListItemsScreen = (props) => {
               contentContainerStyle={styles.contentContainer}
               renderItem={renderListItem}
               data={currentList.products}
-              keyExtractor={(item, index) => item}
+              keyExtractor={(item, index) => item.id}
               style={{ marginHorizontal: 15 }}
             />
           </View>

@@ -7,6 +7,8 @@ import {
   DELETE_USER,
   ADD_USER,
   DELETE_LIST,
+  INCREMENT_ITEM_COUNT,
+  DECREASE_ITEM_COUNT,
 } from "../actions/lists";
 
 const initialState = {
@@ -32,7 +34,10 @@ export default (state = initialState, action) => {
           return item === addedItem.productId;
         }) === -1
       ) {
-        const newProductsList = [...editedList.products, addedItem.productId];
+        const newProductsList = [
+          ...editedList.products,
+          { id: addedItem.productId, count: 1 },
+        ];
         return {
           ...state,
           userLists: state.userLists.map((ul) => {
@@ -50,11 +55,11 @@ export default (state = initialState, action) => {
         return list.id === modList.listId;
       });
       const newProducts = listToEdit.products.filter((product) => {
-        return product !== modList.productId;
+        return product.id !== modList.productId;
       });
       if (
         listToEdit.products.findIndex((item) => {
-          return item === modList.productId;
+          return item.id === modList.productId;
         }) !== -1
       ) {
         return {
@@ -132,6 +137,57 @@ export default (state = initialState, action) => {
       return {
         ...state,
         userLists: newUserLists,
+      };
+    case INCREMENT_ITEM_COUNT:
+      const listToIncrementIn = action.pairedIds.listId;
+      const itemToIncrementId = action.pairedIds.itemId;
+      const incrementList = state.userLists.find(
+        (list) => list.id === listToIncrementIn
+      );
+      const newCountProductsList = incrementList.products.map((ul) => {
+        if (ul.id === itemToIncrementId) {
+          return { id: ul.id, count: ul.count + 1 };
+        }
+        return ul;
+      });
+      return {
+        ...state,
+        userLists: state.userLists.map((list) => {
+          if (list.id === listToIncrementIn) {
+            return {
+              ...list,
+              products: newCountProductsList,
+            };
+          }
+          return list;
+        }),
+      };
+    case DECREASE_ITEM_COUNT:
+      const listToDecreaseIn = action.pairedIds.listId;
+      const itemToDecreaseId = action.pairedIds.itemId;
+      const decreaseList = state.userLists.find(
+        (list) => list.id === listToDecreaseIn
+      );
+      const newCountProductsListD = decreaseList.products.map((ul) => {
+        if (ul.id === itemToDecreaseId) {
+          if (ul.count - 1 < 0) {
+            return { id: ul.id, count: 0 };
+          }
+          return { id: ul.id, count: ul.count - 1 };
+        }
+        return ul;
+      });
+      return {
+        ...state,
+        userLists: state.userLists.map((list) => {
+          if (list.id === listToDecreaseIn) {
+            return {
+              ...list,
+              products: newCountProductsListD,
+            };
+          }
+          return list;
+        }),
       };
   }
   return state;

@@ -4,15 +4,21 @@ import { Ionicons } from "@expo/vector-icons";
 
 import Sizes from "../../constants/Sizes";
 import Colors from "../../constants/Colors";
+import { useDispatch } from "react-redux";
+import * as listActions from "../../store/actions/lists";
 
 const QuantityButton = (props) => {
+  const dispatch = useDispatch();
   return (
     <View style={{ ...styles.buttonContainer, ...props.style }}>
       <View style={styles.topButton}>
         <TouchableOpacity
           onPress={() => {
-            var newQuantity = props.currentQuantity + 1;
-            props.setQuantity(newQuantity);
+            const pairedKeys = {
+              listId: props.listId,
+              itemId: props.productId,
+            };
+            dispatch(listActions.incrementItemCount(pairedKeys));
           }}
         >
           <Ionicons
@@ -25,9 +31,11 @@ const QuantityButton = (props) => {
       <View style={styles.bottomButton}>
         <TouchableOpacity
           onPress={() => {
-            var newQuantity =
-              props.currentQuantity > 0 ? props.currentQuantity - 1 : 0;
-            props.setQuantity(newQuantity);
+            const pairedKeys = {
+              listId: props.listId,
+              itemId: props.productId,
+            };
+            dispatch(listActions.decreaseItemCount(pairedKeys));
           }}
         >
           <Ionicons

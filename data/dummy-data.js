@@ -416,7 +416,12 @@ export const DEFAULTLISTS = [
   new DefaultList(
     "l1",
     "Ünnepi ebéd",
-    ["i1", "i2", "i3", "i4"],
+    [
+      { id: "i1", count: 1 },
+      { id: "i2", count: 1 },
+      { id: "i3", count: 1 },
+      { id: "i4", count: 1 },
+    ],
     ["u1"],
     Colors.redcolor,
     "Április",
@@ -425,7 +430,11 @@ export const DEFAULTLISTS = [
   new DefaultList(
     "l2",
     "Ünnepi vacsora",
-    ["i1", "i2", "i3"],
+    [
+      { id: "i1", count: 1 },
+      { id: "i2", count: 1 },
+      { id: "i3", count: 1 },
+    ],
     ["u1", "u2", "u3"],
     Colors.greencolor,
     "Április",
@@ -434,7 +443,11 @@ export const DEFAULTLISTS = [
   new DefaultList(
     "l3",
     "Ünnepi reggeli",
-    ["i1", "i3", "i4"],
+    [
+      { id: "i1", count: 1 },
+      { id: "i3", count: 1 },
+      { id: "i4", count: 1 },
+    ],
     ["u2"],
     Colors.bluecolor,
     "Március",
@@ -443,7 +456,11 @@ export const DEFAULTLISTS = [
   new DefaultList(
     "l4",
     "Ünnepi uzsonna",
-    ["i2", "i3", "i4"],
+    [
+      { id: "i2", count: 1 },
+      { id: "i3", count: 1 },
+      { id: "i4", count: 1 },
+    ],
     [],
     Colors.greencolor,
     "Május",

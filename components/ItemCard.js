@@ -13,12 +13,16 @@ import Colors from "../constants/Colors";
 import Sizes from "../constants/Sizes";
 import DefaultText from "./texts/DefaultText";
 import QuantityButton from "./buttons/QuantityButton";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as listActions from "../store/actions/lists";
 
 const ItemCard = (props) => {
+  const allList = useSelector((state) => state.lists.userLists);
+  const currentList = allList.find((list) => list.id === props.listId);
+  const currentItem = currentList.products.find(
+    (product) => product.id === props.itemId
+  );
   const dispatch = useDispatch();
-  const [itemCount, setItemCount] = useState(props.quantity);
   const rightSwipe = () => {
     return (
       <View style={styles.deleteButtonContainer}>
@@ -71,13 +75,13 @@ const ItemCard = (props) => {
               >
                 <DefaultText style={styles.title}>{props.name}</DefaultText>
                 <DefaultText style={styles.quantity}>
-                  {itemCount} {props.unit}
+                  {currentItem.count} {props.unit}
                 </DefaultText>
               </View>
               <View style={{ flex: 1 }}>
                 <QuantityButton
-                  currentQuantity={itemCount}
-                  setQuantity={setItemCount}
+                  listId={props.listId}
+                  productId={props.itemId}
                 />
               </View>
             </View>

@@ -5,6 +5,8 @@ export const DELETE_ALL_LISTITEMS = "DELETE_ALL_LISTITEMS";
 export const DELETE_USER = "DELETE_USER";
 export const ADD_USER = "ADD_USER";
 export const DELETE_LIST = "DELETE_LIST";
+export const INCREMENT_ITEM_COUNT = "INCREMENT_ITEM_COUNT";
+export const DECREASE_ITEM_COUNT = "DECREASE_ITEM_COUNT";
 
 export const addToLists = (listitem) => {
   return { type: ADD_TO_LIST, listitem: listitem };
@@ -27,4 +29,11 @@ export const addUser = (pairedIds) => {
 };
 export const deleteList = (listId) => {
   return { type: DELETE_LIST, listId: listId };
+};
+
+export const incrementItemCount = (pairedIds) => {
+  return { type: INCREMENT_ITEM_COUNT, pairedIds: pairedIds };
+};
+export const decreaseItemCount = (pairedIds) => {
+  return { type: DECREASE_ITEM_COUNT, pairedIds: pairedIds };
 };
