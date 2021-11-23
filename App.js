@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
 import { enableScreens } from "react-native-screens";
@@ -70,7 +70,11 @@ export default function App() {
     );
   }
   if (!userLoaded) {
-    return <Text>Loading User</Text>;
+    return (
+      <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
+        <Text>Loading User</Text>
+      </View>
+    );
   }
   if (!user) {
     return <LoginScreen login={login} user={user} />;

@@ -13,13 +13,25 @@ import Colors from "../constants/Colors";
 import Sizes from "../constants/Sizes";
 import DefaultText from "./texts/DefaultText";
 import QuantityButton from "./buttons/QuantityButton";
+import { useDispatch } from "react-redux";
+import * as listActions from "../store/actions/lists";
 
 const ItemCard = (props) => {
+  const dispatch = useDispatch();
   const [itemCount, setItemCount] = useState(props.quantity);
-  const rightSwipe = (props) => {
+  const rightSwipe = () => {
     return (
       <View style={styles.deleteButtonContainer}>
-        <TouchableOpacity activeOpacity={Sizes.activeopacity}>
+        <TouchableOpacity
+          activeOpacity={Sizes.activeopacity}
+          onPress={() => {
+            const returnedPair = {
+              listId: props.listId,
+              productId: props.itemId,
+            };
+            dispatch(listActions.deleteListItem(returnedPair));
+          }}
+        >
           <View style={styles.deleteButton}>
             <Entypo name="cross" size={35} color={Colors.whitecolor} />
           </View>

@@ -8,7 +8,10 @@ import Sizes from "../../constants/Sizes";
 
 const DeleteButton = (props) => {
   return (
-    <TouchableOpacity activeOpacity={Sizes.activeopacity}>
+    <TouchableOpacity
+      activeOpacity={Sizes.activeopacity}
+      onPress={props.onSelect}
+    >
       <View style={styles.buttonContainer}>
         <FontAwesome5 name="trash" size={18} color={Colors.primarygray} />
         <DefaultText style={styles.text}>Törlés</DefaultText>

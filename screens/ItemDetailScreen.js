@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.redcolor,
   },
   imageContainer: {
-    backgroundColor: "blue",
+    backgroundColor: Colors.whitecolor,
     borderRadius: 30,
     overflow: "hidden",
     marginBottom: 30,

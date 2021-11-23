@@ -12,8 +12,11 @@ import DefaultText from "../components/texts/DefaultText";
 import DeleteButton from "../components/buttons/DeleteButton";
 import ItemCard from "../components/ItemCard";
 import { USERS } from "../data/dummy-data";
+import { useDispatch } from "react-redux";
+import * as listActions from "../store/actions/lists";
 
 const ListItemsScreen = (props) => {
+  const dispatch = useDispatch();
   const allProducts = useSelector((state) => state.products.availableProducts);
   const currentList = useSelector((state) =>
     state.lists.userLists.find(
@@ -42,6 +45,8 @@ const ListItemsScreen = (props) => {
         image={currentProduct.img}
         unit={currentProduct.unit}
         quantity={currentProduct.itemCount}
+        itemId={currentProduct.id}
+        listId={currentList.id}
         onSelect={() => {
           props.navigation.navigate({
             routeName: "ItemDetails",
@@ -92,7 +97,15 @@ const ListItemsScreen = (props) => {
         <View style={styles.listheaderContainer}>
           <View style={styles.listheader}>
             <DefaultText style={{ fontSize: 18 }}>Termékek</DefaultText>
-            <DeleteButton />
+            <DeleteButton
+              onSelect={() => {
+                dispatch(
+                  listActions.deleteAllListItems(
+                    props.navigation.getParam("listId")
+                  )
+                );
+              }}
+            />
           </View>
         </View>
         <View style={styles.listContainer}>

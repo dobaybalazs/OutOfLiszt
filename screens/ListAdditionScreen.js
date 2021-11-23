@@ -96,7 +96,7 @@ const ListAdditionScreen = (props) => {
                   const newItem = new DefaultList(
                     id,
                     listName,
-                    ["i2", "i3", "i4", "i5"],
+                    [],
                     userList,
                     listPriority,
                     listDate.split(" ")[0],
