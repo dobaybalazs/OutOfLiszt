@@ -23,15 +23,7 @@ const ListItemsScreen = (props) => {
       (list) => list.id === props.navigation.getParam("listId")
     )
   );
-  const users = props.navigation.getParam("listUsers");
-  const currentUsers = [];
-  for (const user of users) {
-    currentUsers.push(
-      USERS.find((element) => {
-        return user === element.id;
-      })
-    );
-  }
+  const usersList = currentList.users;
   const renderListItem = (itemData) => {
     const currentProduct = allProducts.find(
       (item) => item.id === itemData.item
@@ -47,6 +39,7 @@ const ListItemsScreen = (props) => {
         quantity={currentProduct.itemCount}
         itemId={currentProduct.id}
         listId={currentList.id}
+        isInList={true}
         onSelect={() => {
           props.navigation.navigate({
             routeName: "ItemDetails",
@@ -65,7 +58,23 @@ const ListItemsScreen = (props) => {
     );
   };
   const renderUser = (itemData) => {
-    return <UserButton name={itemData.item.username} style={styles.user} />;
+    const currentUser = USERS.find((user) => user.id === itemData.item);
+    if (!currentUser) {
+      return null;
+    }
+    return (
+      <UserButton
+        name={currentUser.username}
+        style={styles.user}
+        onSelect={() => {
+          const pairedKeys = {
+            listId: currentList.id,
+            userId: currentUser.id,
+          };
+          dispatch(listActions.deleteUser(pairedKeys));
+        }}
+      />
+    );
   };
   return (
     <View style={styles.screen}>
@@ -73,10 +82,10 @@ const ListItemsScreen = (props) => {
         <View style={styles.users}>
           <View>
             <FlatList
-              keyExtractor={(item, index) => item.id}
+              keyExtractor={(item, index) => item}
               horizontal={true}
               showsHorizontalScrollIndicator={false}
-              data={currentUsers}
+              data={usersList}
               renderItem={renderUser}
               style={{ marginHorizontal: 15 }}
             />
@@ -87,6 +96,9 @@ const ListItemsScreen = (props) => {
               onSelect={() => {
                 props.navigation.navigate({
                   routeName: "UserSearch",
+                  params: {
+                    listId: props.navigation.getParam("listId"),
+                  },
                 });
               }}
             />

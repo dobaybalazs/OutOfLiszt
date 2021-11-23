@@ -4,6 +4,8 @@ import {
   ADD_TO_LISTPRODUCTS,
   DELETE_LISTITEM,
   DELETE_ALL_LISTITEMS,
+  DELETE_USER,
+  ADD_USER,
 } from "../actions/lists";
 
 const initialState = {
@@ -76,6 +78,46 @@ export default (state = initialState, action) => {
             return {
               ...ul,
               products: [],
+            };
+          }
+          return ul;
+        }),
+      };
+    case DELETE_USER:
+      const deleteListId = action.pairedIds.listId;
+      const userIdToDelete = action.pairedIds.userId;
+      const listToDeleteFrom = state.userLists.find((list) => {
+        return list.id === deleteListId;
+      });
+      const newUserList = listToDeleteFrom.users.filter(
+        (user) => user !== userIdToDelete
+      );
+      return {
+        ...state,
+        userLists: state.userLists.map((ul) => {
+          if (ul.id === deleteListId) {
+            return {
+              ...ul,
+              users: newUserList,
+            };
+          }
+          return ul;
+        }),
+      };
+    case ADD_USER:
+      const searchedUser = action.pairedIds.userId;
+      const addUserToListId = action.pairedIds.listId;
+      const addUserList = state.userLists.find(
+        (list) => list.id === addUserToListId
+      );
+      const addNewUserList = [...addUserList.users, searchedUser];
+      return {
+        ...state,
+        userLists: state.userLists.map((ul) => {
+          if (ul.id === addUserToListId) {
+            return {
+              ...ul,
+              users: addNewUserList,
             };
           }
           return ul;

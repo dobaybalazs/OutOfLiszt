@@ -26,7 +26,10 @@ const UserButton = (props) => {
             justifyContent: "center",
           }}
         >
-          <TouchableOpacity activeOpacity={Sizes.activeopacity}>
+          <TouchableOpacity
+            activeOpacity={Sizes.activeopacity}
+            onPress={props.onSelect}
+          >
             <Entypo name="cross" size={18} color={Colors.primarygray} />
           </TouchableOpacity>
         </View>

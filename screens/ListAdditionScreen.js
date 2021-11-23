@@ -82,15 +82,17 @@ const ListAdditionScreen = (props) => {
               activeOpacity={Sizes.activeopacity}
               onPress={() => {
                 props.navigation.popToTop();
-                if (listName !== "" && listUsers !== "" && listDate !== "") {
-                  const users = listUsers.split(",");
+                if (listName !== "" && listDate !== "") {
                   const userList = [];
-                  for (const user of users) {
-                    userList.push(
-                      USERS.find((item) => {
-                        return user === item.username;
-                      }).id
-                    );
+                  if (listUsers !== "") {
+                    const users = listUsers.split(",");
+                    for (const user of users) {
+                      userList.push(
+                        USERS.find((item) => {
+                          return user === item.username;
+                        }).id
+                      );
+                    }
                   }
                   const id = "l" + (Math.random() * 100).toString();
                   const newItem = new DefaultList(

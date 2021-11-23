@@ -25,11 +25,13 @@ const ItemCard = (props) => {
         <TouchableOpacity
           activeOpacity={Sizes.activeopacity}
           onPress={() => {
-            const returnedPair = {
-              listId: props.listId,
-              productId: props.itemId,
-            };
-            dispatch(listActions.deleteListItem(returnedPair));
+            if (props.isInList) {
+              const returnedPair = {
+                listId: props.listId,
+                productId: props.itemId,
+              };
+              dispatch(listActions.deleteListItem(returnedPair));
+            }
           }}
         >
           <View style={styles.deleteButton}>

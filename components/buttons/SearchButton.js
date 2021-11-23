@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 const SearchButton = (props) => {
   return (
-    <TouchableOpacity activeOpacity={0.7}>
+    <TouchableOpacity activeOpacity={0.7} onPress={props.onSelect}>
       <View>
         <Ionicons name="search-outline" size={24} color={props.color} />
       </View>
