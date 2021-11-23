@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import { StyleSheet, View, FlatList } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { useSelector } from "react-redux";
@@ -23,80 +23,129 @@ const ListItemsScreen = (props) => {
       (list) => list.id === props.navigation.getParam("listId")
     )
   );
-  const usersList = currentList.users;
-  const renderListItem = (itemData) => {
-    const currentProduct = allProducts.find(
-      (item) => item.id === itemData.item
-    );
-    if (!currentProduct) {
-      return null;
-    }
+  const toggleDeleteHandler = useCallback(() => {
+    props.navigation.popToTop();
+    dispatch(listActions.deleteList(currentList.id));
+  }, [dispatch, currentList]);
+  useEffect(() => {
+    props.navigation.setParams({ toggleDelete: toggleDeleteHandler });
+  }, [toggleDeleteHandler]);
+  if (currentList) {
+    const usersList = currentList.users;
+    const renderListItem = (itemData) => {
+      const currentProduct = allProducts.find(
+        (item) => item.id === itemData.item
+      );
+      if (!currentProduct) {
+        return null;
+      }
+      return (
+        <ItemCard
+          name={currentProduct.name}
+          image={currentProduct.img}
+          unit={currentProduct.unit}
+          quantity={currentProduct.itemCount}
+          itemId={currentProduct.id}
+          listId={currentList.id}
+          isInList={true}
+          onSelect={() => {
+            props.navigation.navigate({
+              routeName: "ItemDetails",
+              params: {
+                itemName: currentProduct.name,
+                itemImage: currentProduct.img,
+                itemUnit: currentProduct.unit,
+                itemPrice: currentProduct.price,
+                itemCategoryId: currentProduct.categoryId,
+                itemPageColor: props.navigation.getParam("pageHeaderColor"),
+                itemPageTitle: props.navigation.getParam("listTitle"),
+              },
+            });
+          }}
+        />
+      );
+    };
+    const renderUser = (itemData) => {
+      const currentUser = USERS.find((user) => user.id === itemData.item);
+      if (!currentUser) {
+        return null;
+      }
+      return (
+        <UserButton
+          name={currentUser.username}
+          style={styles.user}
+          onSelect={() => {
+            const pairedKeys = {
+              listId: currentList.id,
+              userId: currentUser.id,
+            };
+            dispatch(listActions.deleteUser(pairedKeys));
+          }}
+        />
+      );
+    };
     return (
-      <ItemCard
-        name={currentProduct.name}
-        image={currentProduct.img}
-        unit={currentProduct.unit}
-        quantity={currentProduct.itemCount}
-        itemId={currentProduct.id}
-        listId={currentList.id}
-        isInList={true}
-        onSelect={() => {
-          props.navigation.navigate({
-            routeName: "ItemDetails",
-            params: {
-              itemName: currentProduct.name,
-              itemImage: currentProduct.img,
-              itemUnit: currentProduct.unit,
-              itemPrice: currentProduct.price,
-              itemCategoryId: currentProduct.categoryId,
-              itemPageColor: props.navigation.getParam("pageHeaderColor"),
-              itemPageTitle: props.navigation.getParam("listTitle"),
-            },
-          });
-        }}
-      />
-    );
-  };
-  const renderUser = (itemData) => {
-    const currentUser = USERS.find((user) => user.id === itemData.item);
-    if (!currentUser) {
-      return null;
-    }
-    return (
-      <UserButton
-        name={currentUser.username}
-        style={styles.user}
-        onSelect={() => {
-          const pairedKeys = {
-            listId: currentList.id,
-            userId: currentUser.id,
-          };
-          dispatch(listActions.deleteUser(pairedKeys));
-        }}
-      />
-    );
-  };
-  return (
-    <View style={styles.screen}>
-      <View style={styles.usersContainer}>
-        <View style={styles.users}>
-          <View>
+      <View style={styles.screen}>
+        <View style={styles.usersContainer}>
+          <View style={styles.users}>
+            <View>
+              <FlatList
+                keyExtractor={(item, index) => item}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                data={usersList}
+                renderItem={renderUser}
+                style={{ marginHorizontal: 15 }}
+              />
+            </View>
+            <View style={{ padding: 15 }}>
+              <AddUserButton
+                color={Colors.primarygray}
+                onSelect={() => {
+                  props.navigation.navigate({
+                    routeName: "UserSearch",
+                    params: {
+                      listId: props.navigation.getParam("listId"),
+                    },
+                  });
+                }}
+              />
+            </View>
+          </View>
+        </View>
+        <View style={styles.body}>
+          <View style={styles.listheaderContainer}>
+            <View style={styles.listheader}>
+              <DefaultText style={{ fontSize: 18 }}>Termékek</DefaultText>
+              <DeleteButton
+                onSelect={() => {
+                  dispatch(
+                    listActions.deleteAllListItems(
+                      props.navigation.getParam("listId")
+                    )
+                  );
+                }}
+              />
+            </View>
+          </View>
+          <View style={styles.listContainer}>
             <FlatList
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={styles.contentContainer}
+              renderItem={renderListItem}
+              data={currentList.products}
               keyExtractor={(item, index) => item}
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-              data={usersList}
-              renderItem={renderUser}
               style={{ marginHorizontal: 15 }}
             />
           </View>
-          <View style={{ padding: 15 }}>
-            <AddUserButton
-              color={Colors.primarygray}
+          <View style={styles.buttonContainer}>
+            <AddButton
+              color={props.navigation.getParam("pageHeaderColor")}
               onSelect={() => {
                 props.navigation.navigate({
-                  routeName: "UserSearch",
+                  routeName: "ItemAddition",
                   params: {
+                    headerColor: props.navigation.getParam("pageHeaderColor"),
                     listId: props.navigation.getParam("listId"),
                   },
                 });
@@ -105,53 +154,15 @@ const ListItemsScreen = (props) => {
           </View>
         </View>
       </View>
-      <View style={styles.body}>
-        <View style={styles.listheaderContainer}>
-          <View style={styles.listheader}>
-            <DefaultText style={{ fontSize: 18 }}>Termékek</DefaultText>
-            <DeleteButton
-              onSelect={() => {
-                dispatch(
-                  listActions.deleteAllListItems(
-                    props.navigation.getParam("listId")
-                  )
-                );
-              }}
-            />
-          </View>
-        </View>
-        <View style={styles.listContainer}>
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={styles.contentContainer}
-            renderItem={renderListItem}
-            data={currentList.products}
-            keyExtractor={(item, index) => item}
-            style={{ marginHorizontal: 15 }}
-          />
-        </View>
-        <View style={styles.buttonContainer}>
-          <AddButton
-            color={props.navigation.getParam("pageHeaderColor")}
-            onSelect={() => {
-              props.navigation.navigate({
-                routeName: "ItemAddition",
-                params: {
-                  headerColor: props.navigation.getParam("pageHeaderColor"),
-                  listId: props.navigation.getParam("listId"),
-                },
-              });
-            }}
-          />
-        </View>
-      </View>
-    </View>
-  );
+    );
+  }
+  return <View></View>;
 };
 
 ListItemsScreen.navigationOptions = (navData) => {
   const pageTitle = navData.navigation.getParam("listTitle");
   const pageHeaderColor = navData.navigation.getParam("pageHeaderColor");
+  const toggleDelete = navData.navigation.getParam("toggleDelete");
   return {
     headerTitle: pageTitle,
     headerStyle: {
@@ -160,7 +171,7 @@ ListItemsScreen.navigationOptions = (navData) => {
     headerTintColor: Colors.whitecolor,
     headerRight: () => (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
-        <Item title="Done" iconName="checkmark" onPress={() => {}} />
+        <Item title="Done" iconName="checkmark" onPress={toggleDelete} />
       </HeaderButtons>
     ),
   };

@@ -4,6 +4,7 @@ export const DELETE_LISTITEM = "DELETE_LISTITEM";
 export const DELETE_ALL_LISTITEMS = "DELETE_ALL_LISTITEMS";
 export const DELETE_USER = "DELETE_USER";
 export const ADD_USER = "ADD_USER";
+export const DELETE_LIST = "DELETE_LIST";
 
 export const addToLists = (listitem) => {
   return { type: ADD_TO_LIST, listitem: listitem };
@@ -23,4 +24,7 @@ export const deleteUser = (pairedIds) => {
 };
 export const addUser = (pairedIds) => {
   return { type: ADD_USER, pairedIds: pairedIds };
+};
+export const deleteList = (listId) => {
+  return { type: DELETE_LIST, listId: listId };
 };

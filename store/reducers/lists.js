@@ -6,6 +6,7 @@ import {
   DELETE_ALL_LISTITEMS,
   DELETE_USER,
   ADD_USER,
+  DELETE_LIST,
 } from "../actions/lists";
 
 const initialState = {
@@ -122,6 +123,15 @@ export default (state = initialState, action) => {
           }
           return ul;
         }),
+      };
+    case DELETE_LIST:
+      const listToDeleteId = action.listId;
+      const newUserLists = state.userLists.filter(
+        (list) => list.id !== listToDeleteId
+      );
+      return {
+        ...state,
+        userLists: newUserLists,
       };
   }
   return state;
