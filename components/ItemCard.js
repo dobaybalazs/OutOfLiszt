@@ -17,11 +17,88 @@ import { useDispatch, useSelector } from "react-redux";
 import * as listActions from "../store/actions/lists";
 
 const ItemCard = (props) => {
+  if (props.isInList) {
+    const allList = useSelector((state) => state.lists.userLists);
+    const currentList = allList.find((list) => list.id === props.listId);
+    const currentItem = currentList.products.find(
+      (product) => product.id === props.itemId
+    );
+
+    const dispatch = useDispatch();
+    const rightSwipe = () => {
+      return (
+        <View style={styles.deleteButtonContainer}>
+          <TouchableOpacity
+            activeOpacity={Sizes.activeopacity}
+            onPress={() => {
+              if (props.isInList) {
+                const returnedPair = {
+                  listId: props.listId,
+                  productId: props.itemId,
+                };
+                dispatch(listActions.deleteListItem(returnedPair));
+              }
+            }}
+          >
+            <View style={styles.deleteButton}>
+              <Entypo name="cross" size={35} color={Colors.whitecolor} />
+            </View>
+          </TouchableOpacity>
+        </View>
+      );
+    };
+    return (
+      <View style={styles.topContainer}>
+        <View style={styles.itemContainer}>
+          <Swipeable
+            renderRightActions={rightSwipe}
+            containerStyle={{ flex: 1, width: "100%" }}
+            waitFor
+          >
+            <TouchableOpacity activeOpacity={0.6} onPress={props.onSelect}>
+              <View style={styles.item}>
+                <View style={{ flex: 4 }}>
+                  <Image
+                    style={styles.image}
+                    source={{
+                      uri: props.image,
+                    }}
+                    resizeMode="cover"
+                  />
+                </View>
+                <View
+                  style={{
+                    flex: 7,
+                    width: "100%",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <DefaultText style={styles.title}>{props.name}</DefaultText>
+                  <DefaultText style={styles.quantity}>
+                    {currentItem.count} {props.unit}
+                  </DefaultText>
+                </View>
+                <View style={{ flex: 1 }}>
+                  <QuantityButton
+                    listId={props.listId}
+                    productId={props.itemId}
+                  />
+                </View>
+              </View>
+            </TouchableOpacity>
+          </Swipeable>
+        </View>
+      </View>
+    );
+  }
   const allList = useSelector((state) => state.lists.userLists);
-  const currentList = allList.find((list) => list.id === props.listId);
+  /*const currentList = allList.find((list) => list.id === props.listId);
   const currentItem = currentList.products.find(
     (product) => product.id === props.itemId
-  );
+  );*/
+
   const dispatch = useDispatch();
   const rightSwipe = () => {
     return (
@@ -75,7 +152,7 @@ const ItemCard = (props) => {
               >
                 <DefaultText style={styles.title}>{props.name}</DefaultText>
                 <DefaultText style={styles.quantity}>
-                  {currentItem.count} {props.unit}
+                  1 {props.unit}
                 </DefaultText>
               </View>
               <View style={{ flex: 1 }}>
