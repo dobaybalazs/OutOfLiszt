@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import Colors from "../../constants/Colors";
 import Sizes from "../../constants/Sizes";
 import DefaultText from "../../components/texts/DefaultText";
+import InputField from "../../components/InputField";
 import { signOut } from "firebase/auth";
 import { auth } from "../../App";
 
@@ -13,6 +14,103 @@ function logout() {
 }
 
 const ProfileScreen = (props) => {
+  const [isEditable, setisEditable] = useState(false);
+  const [name, setName] = useState("");
+  const [birthDate, setBirthDate] = useState("");
+  const [emailAddress, setEmailAddress] = useState("");
+  const Bodycmp = () => {
+    const [localname, setlocalName] = useState(name === "" ? "" : name);
+    const [localbirthDate, setlocalBirthDate] = useState(
+      birthDate === "" ? "" : birthDate
+    );
+    const [localemailAddress, setlocalEmailAddress] = useState(
+      emailAddress === "" ? "" : emailAddress
+    );
+    if (isEditable) {
+      return (
+        <View
+          style={{
+            flex: 8,
+            width: "100%",
+            backgroundColor: "white",
+            borderTopRightRadius: 35,
+            borderTopLeftRadius: 35,
+            alignItems: "center",
+            justifyContent: "space-evenly",
+            padding: 25,
+          }}
+        >
+          <InputField
+            placeholder="Enter name"
+            value={localname}
+            onChange={(v) => {
+              setlocalName(v);
+            }}
+          />
+          <InputField
+            placeholder="Enter birthdate"
+            value={localbirthDate}
+            onChange={(v) => {
+              setlocalBirthDate(v);
+            }}
+          />
+          <InputField
+            placeholder="Enter email address"
+            value={localemailAddress}
+            onChange={(v) => {
+              setlocalEmailAddress(v);
+            }}
+          />
+          <TouchableOpacity
+            activeOpacity={Sizes.activeopacity}
+            style={{ marginTop: 35 }}
+            onPress={() => {
+              setName(localname === "" ? name : localname);
+              setBirthDate(localbirthDate === "" ? birthDate : localbirthDate);
+              setEmailAddress(
+                localemailAddress === "" ? emailAddress : localemailAddress
+              );
+              setisEditable(!isEditable);
+            }}
+          >
+            <View style={styles.Button}>
+              <DefaultText style={styles.ButtonText}>
+                Profil adatok mentése
+              </DefaultText>
+            </View>
+          </TouchableOpacity>
+        </View>
+      );
+    }
+    return (
+      <View style={styles.body}>
+        <View style={styles.field}>
+          <DefaultText style={styles.text}>Név: {name}</DefaultText>
+        </View>
+        <View style={styles.field}>
+          <DefaultText style={styles.text}>
+            Születési dátum: {birthDate}
+          </DefaultText>
+        </View>
+        <View style={styles.field}>
+          <DefaultText style={styles.text}>
+            E-mail-cím: {emailAddress}
+          </DefaultText>
+        </View>
+        <TouchableOpacity
+          activeOpacity={Sizes.activeopacity}
+          style={{ marginTop: 35 }}
+          onPress={() => setisEditable(!isEditable)}
+        >
+          <View style={styles.Button}>
+            <DefaultText style={styles.ButtonText}>
+              Profil szerkesztése
+            </DefaultText>
+          </View>
+        </TouchableOpacity>
+      </View>
+    );
+  };
   return (
     <View style={styles.screen}>
       <View style={styles.header}>
@@ -26,31 +124,11 @@ const ProfileScreen = (props) => {
         </View>
         <View>
           <DefaultText style={{ color: Colors.whitecolor, fontSize: 20 }}>
-            Felhasználónév
+            Gina
           </DefaultText>
         </View>
       </View>
-      <View style={styles.body}>
-        <View style={styles.field}>
-          <DefaultText style={styles.text}>Név</DefaultText>
-        </View>
-        <View style={styles.field}>
-          <DefaultText style={styles.text}>Életkor</DefaultText>
-        </View>
-        <View style={styles.field}>
-          <DefaultText style={styles.text}>Nem</DefaultText>
-        </View>
-        <TouchableOpacity
-          activeOpacity={Sizes.activeopacity}
-          style={{ marginTop: 35 }}
-        >
-          <View style={styles.Button}>
-            <DefaultText style={styles.ButtonText}>
-              Profil szerkesztése
-            </DefaultText>
-          </View>
-        </TouchableOpacity>
-      </View>
+      <Bodycmp />
       <View
         style={{
           flex: 1,
@@ -116,7 +194,7 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   text: {
-    fontSize: 20,
+    fontSize: 18,
     color: Colors.secondarygray,
   },
   Button: {

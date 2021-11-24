@@ -392,7 +392,8 @@ export const USERS = [
     "Testvér",
     "https://kep.cdn.index.hu/1/0/723/7234/72345/7234513_ca4a011d0d0e254a0cb1b0897055d8be_wm.jpg",
     25,
-    "male"
+    "male",
+    "molnaraki@gmail.com"
   ),
   new User(
     "u2",
@@ -400,7 +401,8 @@ export const USERS = [
     "Lánytesó",
     "https://static.marquardmedia.hu/data/cikk/234/234174-hedinke-szabo-hedi.640.jpg",
     17,
-    "female"
+    "female",
+    "molnar.tam@gmail.com"
   ),
   new User(
     "u3",
@@ -408,7 +410,8 @@ export const USERS = [
     "Anya",
     "https://onszak.pte.hu/userfiles/szemely/20/400x400.jpg",
     48,
-    "female"
+    "female",
+    "molnarkaty@gmail.com"
   ),
 ];
 
