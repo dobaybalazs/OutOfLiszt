@@ -5,12 +5,13 @@ import Header from "../../components/Header";
 import ItemCard from "../../components/ItemCard";
 import ItemFilter, { filters } from "../../components/ItemFilter";
 import Colors from "../../constants/Colors";
-import { LISTITEMS } from "../../data/dummy-data";
 import { useSelector } from "react-redux";
 
 const PantryScreen = (props) => {
-  const currentPantryItems = useSelector(
-    (state) => state.pantry.availablePantryProducts
+  const currentPantryItems = useSelector((state) =>
+    state.products.userProducts.filter(
+      (product) => product.coldStorage === false
+    )
   );
   const NamedList = (itemData) => {
     return (
@@ -19,6 +20,7 @@ const PantryScreen = (props) => {
         image={itemData.item.img}
         unit={itemData.item.unit}
         quantity={itemData.item.itemCount}
+        itemId={itemData.item.id}
       />
     );
   };

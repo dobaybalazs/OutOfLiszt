@@ -14,6 +14,7 @@ import ItemCard from "../components/ItemCard";
 import { USERS } from "../data/dummy-data";
 import { useDispatch } from "react-redux";
 import * as listActions from "../store/actions/lists";
+import * as productActions from "../store/actions/products";
 
 const ListItemsScreen = (props) => {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ const ListItemsScreen = (props) => {
   );
   const toggleDeleteHandler = useCallback(() => {
     props.navigation.popToTop();
+    dispatch(productActions.addToUserProducts(currentList.products));
     dispatch(listActions.deleteList(currentList.id));
   }, [dispatch, currentList]);
   useEffect(() => {

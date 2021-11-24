@@ -6,6 +6,7 @@ import Sizes from "../../constants/Sizes";
 import Colors from "../../constants/Colors";
 import { useDispatch } from "react-redux";
 import * as listActions from "../../store/actions/lists";
+import * as productActions from "../../store/actions/products";
 
 const QuantityButton = (props) => {
   const dispatch = useDispatch();
@@ -14,11 +15,15 @@ const QuantityButton = (props) => {
       <View style={styles.topButton}>
         <TouchableOpacity
           onPress={() => {
-            const pairedKeys = {
-              listId: props.listId,
-              itemId: props.productId,
-            };
-            dispatch(listActions.incrementItemCount(pairedKeys));
+            if (props.isInStorage) {
+              const pairedKeys = {
+                listId: props.listId,
+                itemId: props.productId,
+              };
+              dispatch(listActions.incrementItemCount(pairedKeys));
+            } else {
+              dispatch(productActions.incrementProductCount(props.productId));
+            }
           }}
         >
           <Ionicons
@@ -31,11 +36,16 @@ const QuantityButton = (props) => {
       <View style={styles.bottomButton}>
         <TouchableOpacity
           onPress={() => {
-            const pairedKeys = {
-              listId: props.listId,
-              itemId: props.productId,
-            };
-            dispatch(listActions.decreaseItemCount(pairedKeys));
+            if (props.isInStorage) {
+              const pairedKeys = {
+                listId: props.listId,
+                itemId: props.productId,
+              };
+
+              dispatch(listActions.decreaseItemCount(pairedKeys));
+            } else {
+              dispatch(productActions.decreaseProductCount(props.productId));
+            }
           }}
         >
           <Ionicons

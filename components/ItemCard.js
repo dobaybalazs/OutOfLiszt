@@ -15,6 +15,7 @@ import DefaultText from "./texts/DefaultText";
 import QuantityButton from "./buttons/QuantityButton";
 import { useDispatch, useSelector } from "react-redux";
 import * as listActions from "../store/actions/lists";
+import * as productActions from "../store/actions/products";
 
 const ItemCard = (props) => {
   if (props.isInList) {
@@ -31,13 +32,11 @@ const ItemCard = (props) => {
           <TouchableOpacity
             activeOpacity={Sizes.activeopacity}
             onPress={() => {
-              if (props.isInList) {
-                const returnedPair = {
-                  listId: props.listId,
-                  productId: props.itemId,
-                };
-                dispatch(listActions.deleteListItem(returnedPair));
-              }
+              const returnedPair = {
+                listId: props.listId,
+                productId: props.itemId,
+              };
+              dispatch(listActions.deleteListItem(returnedPair));
             }}
           >
             <View style={styles.deleteButton}>
@@ -84,6 +83,7 @@ const ItemCard = (props) => {
                   <QuantityButton
                     listId={props.listId}
                     productId={props.itemId}
+                    isInStorage={props.isInList}
                   />
                 </View>
               </View>
@@ -93,12 +93,10 @@ const ItemCard = (props) => {
       </View>
     );
   }
-  const allList = useSelector((state) => state.lists.userLists);
-  /*const currentList = allList.find((list) => list.id === props.listId);
-  const currentItem = currentList.products.find(
+  const allProducts = useSelector((state) => state.products.userProducts);
+  const currentItem = allProducts.find(
     (product) => product.id === props.itemId
-  );*/
-
+  );
   const dispatch = useDispatch();
   const rightSwipe = () => {
     return (
@@ -106,13 +104,7 @@ const ItemCard = (props) => {
         <TouchableOpacity
           activeOpacity={Sizes.activeopacity}
           onPress={() => {
-            if (props.isInList) {
-              const returnedPair = {
-                listId: props.listId,
-                productId: props.itemId,
-              };
-              dispatch(listActions.deleteListItem(returnedPair));
-            }
+            dispatch(productActions.deleteUserProduct(props.itemId));
           }}
         >
           <View style={styles.deleteButton}>
@@ -152,13 +144,14 @@ const ItemCard = (props) => {
               >
                 <DefaultText style={styles.title}>{props.name}</DefaultText>
                 <DefaultText style={styles.quantity}>
-                  1 {props.unit}
+                  {currentItem.itemCount} {props.unit}
                 </DefaultText>
               </View>
               <View style={{ flex: 1 }}>
                 <QuantityButton
                   listId={props.listId}
                   productId={props.itemId}
+                  isInStorage={props.isInList}
                 />
               </View>
             </View>

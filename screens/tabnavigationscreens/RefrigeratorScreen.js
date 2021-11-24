@@ -1,16 +1,17 @@
 import React, { useState } from "react";
-import { StyleSheet, View, ScrollView, Text } from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
 
 import Colors from "../../constants/Colors";
 import Header from "../../components/Header";
 import ItemCard from "../../components/ItemCard";
 import ItemFilter, { filters } from "../../components/ItemFilter";
-import { FlatList } from "react-native-gesture-handler";
 import { useSelector } from "react-redux";
 
 const RefrigeratorScreen = (props) => {
-  const currentFridgeItems = useSelector(
-    (state) => state.fridge.availableFridgeProducts
+  const currentFridgeItems = useSelector((state) =>
+    state.products.userProducts.filter(
+      (product) => product.coldStorage === true
+    )
   );
   const NamedList = (itemData) => {
     return (
@@ -19,6 +20,7 @@ const RefrigeratorScreen = (props) => {
         image={itemData.item.img}
         unit={itemData.item.unit}
         quantity={itemData.item.itemCount}
+        itemId={itemData.item.id}
       />
     );
   };
