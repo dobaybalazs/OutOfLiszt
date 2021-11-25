@@ -31,7 +31,7 @@ export default (state = initialState, action) => {
       });
       if (
         editedList.products.findIndex((item) => {
-          return item === addedItem.productId;
+          return item.id === addedItem.productId;
         }) === -1
       ) {
         const newProductsList = [
