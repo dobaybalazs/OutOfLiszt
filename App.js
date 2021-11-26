@@ -12,22 +12,23 @@ import LoginScreen from "./screens/LoginScreen";
 import listsReducer from "./store/reducers/lists";
 import productsReducer from "./store/reducers/products";
 
-import { firebaseConfig } from "./firebaseconfig";
-import { initializeApp } from "firebase/app";
+// import { firebaseConfig } from "./firebaseconfig";
+// import { initializeApp } from "firebase/app";
 import {
-  getAuth,
-  createUserWithEmailAndPassword,
+  //getAuth,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
+import { auth } from './firebaseconfig'
 
-export const firebase = initializeApp(firebaseConfig);
-export const auth = getAuth(firebase);
-const initialUser = null;
+//export const firebase = initializeApp(firebaseConfig);
+//export const auth = getAuth(firebase);
+//const initialUser = null;
 
-function login(email, password) {
-  return signInWithEmailAndPassword(auth, email, password);
-}
+// function login(email, password) {
+//   return signInWithEmailAndPassword(auth, email, password);
+// }
 
 enableScreens();
 
@@ -46,9 +47,11 @@ const fetchFonts = () => {
 };
 
 export default function App() {
+
   const [fontLoaded, setFontLoaded] = useState(false);
   const [userLoaded, setUserLoaded] = useState(false);
   const [user, setUser] = useState(null);
+
   React.useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
@@ -56,6 +59,37 @@ export default function App() {
     });
     return unsubscribe;
   }, []);
+
+  const handleSignUp = (email, password) => {
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      console.log('Created with: ', user.email);
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+      alert(errorMessage);
+    });
+  };
+
+  const handleLogin = (email, password) => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Logged in 
+        const user = userCredential.user;
+      console.log('Logged in with: ', user.email);
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+      alert(errorMessage);
+    });
+  }
+
   if (!fontLoaded) {
     return (
       <AppLoading
@@ -65,6 +99,7 @@ export default function App() {
       />
     );
   }
+
   if (!userLoaded) {
     return (
       <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
@@ -72,9 +107,11 @@ export default function App() {
       </View>
     );
   }
+
   if (!user) {
-    return <LoginScreen login={login} user={user} />;
-  } else
+    return <LoginScreen login={handleLogin} register={handleSignUp} user={user} />;
+  } 
+  else
     return (
       <Provider store={store}>
         <ShopNavigator />

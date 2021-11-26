@@ -4,28 +4,42 @@ import Colors from "../../constants/Colors";
 import Sizes from "../../constants/Sizes";
 import DefaultText from "../../components/texts/DefaultText";
 import InputField from "../../components/InputField";
-import { signOut } from "firebase/auth";
-import { auth } from "../../App";
+//import { signOut } from "firebase/auth";
+import { auth } from "../../firebaseconfig";
 
-function logout() {
-  return signOut(auth).then(() => {
-    // Sign-out successful.
-  });
-}
+// function logout() {
+//   return signOut(auth).then(() => {
+//     // Sign-out successful.
+//   });
+// }
 
 const ProfileScreen = (props) => {
+
   const [isEditable, setisEditable] = useState(false);
   const [name, setName] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
+
+  const handleLogOut = () => {
+    auth.signOut()
+      .then(() => {
+        // Signed out 
+        console.log('Logged out');
+      })
+      .catch(error => alert(error.message));
+    
+  };
+
   const Bodycmp = () => {
     const [localname, setlocalName] = useState(name === "" ? "" : name);
     const [localbirthDate, setlocalBirthDate] = useState(
       birthDate === "" ? "" : birthDate
     );
+
     const [localemailAddress, setlocalEmailAddress] = useState(
       emailAddress === "" ? "" : emailAddress
     );
+
     if (isEditable) {
       return (
         <View
@@ -82,6 +96,7 @@ const ProfileScreen = (props) => {
         </View>
       );
     }
+
     return (
       <View style={styles.body}>
         <View style={styles.field}>
@@ -111,6 +126,7 @@ const ProfileScreen = (props) => {
       </View>
     );
   };
+
   return (
     <View style={styles.screen}>
       <View style={styles.header}>
@@ -137,13 +153,19 @@ const ProfileScreen = (props) => {
           alignItems: "center",
         }}
       >
-        <TouchableOpacity onPress={logout}>
+        <TouchableOpacity onPress={handleLogOut}>
           <View style={{ width: 200, alignItems: "center" }}>
             <Text style={{ fontSize: 20, color: Colors.primarygray }}>
-              Logout
+              Sign Out
             </Text>
           </View>
         </TouchableOpacity>
+        {/* <TouchableOpacity
+          onPress={handleLogOut}
+          style={styles.buttonLogOut}
+        >
+          <Text style={styles.buttonTextLogOut}>Sign Out</Text>
+        </TouchableOpacity> */}
       </View>
     </View>
   );
@@ -208,5 +230,18 @@ const styles = StyleSheet.create({
   ButtonText: {
     fontSize: Sizes.titlefontsize,
     color: Colors.whitecolor,
+  },
+  buttonLogOut: {
+    backgroundColor: '#0782F9',
+    width: '60%',
+    padding: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  buttonTextLogOut: {
+    color: 'white',
+    fontWeight: '700',
+    fontSize: 16,
   },
 });
