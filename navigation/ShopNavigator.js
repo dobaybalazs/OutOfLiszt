@@ -23,6 +23,7 @@ import ListItemsScreen from "../screens/ListItemsScreen";
 import ItemAdditionScreen from "../screens/ItemAdditionScreen";
 import ItemDetailScreen from "../screens/ItemDetailScreen";
 import SearchForUserScreen from "../screens/SearchForUserScreen";
+import ProductAdditionScreen from "../screens/ProductAdditionScreen";
 
 const defaultStackNavOptions = {
   headerMode: "float",
@@ -58,6 +59,9 @@ const ListsNavigator = createStackNavigator(
     },
     ItemDetails: {
       screen: ItemDetailScreen,
+    },
+    ProductAddition: {
+      screen: ProductAdditionScreen,
     },
     UserSearch: {
       screen: SearchForUserScreen,

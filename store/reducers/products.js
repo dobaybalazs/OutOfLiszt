@@ -5,6 +5,7 @@ import {
   DELETE_USERPRODUCT,
   INCREMENT_PRODUCT_COUNT,
   DECREASE_PRODUCT_COUNT,
+  ADD_TO_PRODUCTS,
 } from "../actions/products";
 
 const initialState = {
@@ -14,6 +15,12 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case ADD_TO_PRODUCTS:
+      const newProduct = action.product;
+      return {
+        ...state,
+        availableProducts: [...state.availableProducts, newProduct],
+      };
     case ADD_TO_USERPRODUCTS:
       const currentProducts = action.products;
       var addedProductsList = [];

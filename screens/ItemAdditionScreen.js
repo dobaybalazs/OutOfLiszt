@@ -4,6 +4,7 @@ import { StyleSheet, View, FlatList } from "react-native";
 import AddItemCard from "../components/AddItemCard";
 import Colors from "../constants/Colors";
 import { useSelector } from "react-redux";
+import AddButton from "../components/buttons/AddButton";
 
 const ItemAdditionScreen = (props) => {
   const currentListId = props.navigation.getParam("listId");
@@ -33,6 +34,19 @@ const ItemAdditionScreen = (props) => {
           showsVerticalScrollIndicator={false}
         />
       </View>
+      <View style={styles.footer}>
+        <AddButton
+          color={props.navigation.getParam("headerColor")}
+          onSelect={() => {
+            props.navigation.navigate({
+              routeName: "ProductAddition",
+              params: {
+                headerColor: props.navigation.getParam("headerColor"),
+              },
+            });
+          }}
+        />
+      </View>
     </View>
   );
 };
@@ -40,7 +54,7 @@ const ItemAdditionScreen = (props) => {
 ItemAdditionScreen.navigationOptions = (navData) => {
   const headerColor = navData.navigation.getParam("headerColor");
   return {
-    headerTitle: "Add Item",
+    headerTitle: "Choose Item",
     headerStyle: {
       backgroundColor: headerColor,
     },
@@ -58,8 +72,12 @@ const styles = StyleSheet.create({
   },
   body: {
     marginTop: 40,
-    flex: 4,
+    flex: 6,
     alignItems: "center",
+  },
+  footer: {
+    flex: 2,
+    justifyContent: "center",
   },
 });
 

@@ -137,7 +137,6 @@ const ListItemsScreen = (props) => {
               renderItem={renderListItem}
               data={currentList.products}
               keyExtractor={(item, index) => item.id}
-              style={{ marginHorizontal: 15 }}
             />
           </View>
           <View style={styles.buttonContainer}>

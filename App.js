@@ -11,8 +11,6 @@ import ShopNavigator from "./navigation/ShopNavigator";
 import LoginScreen from "./screens/LoginScreen";
 import listsReducer from "./store/reducers/lists";
 import productsReducer from "./store/reducers/products";
-import fridgeReducer from "./store/reducers/fridge";
-import pantryReducer from "./store/reducers/pantry";
 
 import { firebaseConfig } from "./firebaseconfig";
 import { initializeApp } from "firebase/app";
@@ -36,8 +34,6 @@ enableScreens();
 const rootReducer = combineReducers({
   lists: listsReducer,
   products: productsReducer,
-  fridge: fridgeReducer,
-  pantry: pantryReducer,
 });
 
 const store = createStore(rootReducer);

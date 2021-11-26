@@ -34,10 +34,12 @@ const RefrigeratorScreen = (props) => {
         Hűtő
       </Header>
       <View style={styles.body}>
-        <ItemFilter
-          activeFilter={activeFilter}
-          setActiveFilter={setActiveFilter}
-        />
+        <View style={{ flex: 1 }}>
+          <ItemFilter
+            activeFilter={activeFilter}
+            setActiveFilter={setActiveFilter}
+          />
+        </View>
         <View style={styles.list}>
           <FlatList
             showsVerticalScrollIndicator={false}
@@ -73,7 +75,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   list: {
-    flex: 1,
+    flex: 8,
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
