@@ -4,21 +4,17 @@ import Colors from "../../constants/Colors";
 import Sizes from "../../constants/Sizes";
 import DefaultText from "../../components/texts/DefaultText";
 import InputField from "../../components/InputField";
-//import { signOut } from "firebase/auth";
 import { auth } from "../../firebaseconfig";
+import { updateProfile } from "firebase/auth";
 
-// function logout() {
-//   return signOut(auth).then(() => {
-//     // Sign-out successful.
-//   });
-// }
 
-const ProfileScreen = (props) => {
+const ProfileScreen = () => {
+  let userName = auth.currentUser.displayName;
 
   const [isEditable, setisEditable] = useState(false);
-  const [name, setName] = useState("");
-  const [birthDate, setBirthDate] = useState("");
-  const [emailAddress, setEmailAddress] = useState("");
+  const [name, setName] = useState(userName);
+  // const [birthDate, setBirthDate] = useState("");
+  // const [emailAddress, setEmailAddress] = useState("");
 
   const handleLogOut = () => {
     auth.signOut()
@@ -32,14 +28,19 @@ const ProfileScreen = (props) => {
 
   const Bodycmp = () => {
     const [localname, setlocalName] = useState(name === "" ? "" : name);
-    const [localbirthDate, setlocalBirthDate] = useState(
-      birthDate === "" ? "" : birthDate
-    );
 
-    const [localemailAddress, setlocalEmailAddress] = useState(
-      emailAddress === "" ? "" : emailAddress
-    );
+    // const [localbirthDate, setlocalBirthDate] = useState(
+    //   birthDate === "" ? "" : birthDate
+    // );
+    // const [localemailAddress, setlocalEmailAddress] = useState(
+    //   emailAddress === "" ? "" : emailAddress
+    // );
 
+    const handleChange = (localname) => {
+      updateProfile(auth.currentUser, {
+        displayName: localname });
+    }
+    
     if (isEditable) {
       return (
         <View
@@ -61,7 +62,7 @@ const ProfileScreen = (props) => {
               setlocalName(v);
             }}
           />
-          <InputField
+          {/* <InputField
             placeholder="Enter birthdate"
             value={localbirthDate}
             onChange={(v) => {
@@ -74,16 +75,17 @@ const ProfileScreen = (props) => {
             onChange={(v) => {
               setlocalEmailAddress(v);
             }}
-          />
+          /> */}
           <TouchableOpacity
             activeOpacity={Sizes.activeopacity}
             style={{ marginTop: 35 }}
             onPress={() => {
               setName(localname === "" ? name : localname);
-              setBirthDate(localbirthDate === "" ? birthDate : localbirthDate);
-              setEmailAddress(
-                localemailAddress === "" ? emailAddress : localemailAddress
-              );
+              handleChange(localname);
+              // setBirthDate(localbirthDate === "" ? birthDate : localbirthDate);
+              // setEmailAddress(
+              //   localemailAddress === "" ? emailAddress : localemailAddress
+              // );
               setisEditable(!isEditable);
             }}
           >
@@ -102,7 +104,7 @@ const ProfileScreen = (props) => {
         <View style={styles.field}>
           <DefaultText style={styles.text}>Név: {name}</DefaultText>
         </View>
-        <View style={styles.field}>
+        {/* <View style={styles.field}>
           <DefaultText style={styles.text}>
             Születési dátum: {birthDate}
           </DefaultText>
@@ -111,7 +113,7 @@ const ProfileScreen = (props) => {
           <DefaultText style={styles.text}>
             E-mail-cím: {emailAddress}
           </DefaultText>
-        </View>
+        </View> */}
         <TouchableOpacity
           activeOpacity={Sizes.activeopacity}
           style={{ marginTop: 35 }}
@@ -140,7 +142,7 @@ const ProfileScreen = (props) => {
         </View>
         <View>
           <DefaultText style={{ color: Colors.whitecolor, fontSize: 20 }}>
-            Gina
+            {name}
           </DefaultText>
         </View>
       </View>

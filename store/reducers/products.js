@@ -7,9 +7,21 @@ import {
   DECREASE_PRODUCT_COUNT,
   ADD_TO_PRODUCTS,
 } from "../actions/products";
+import { db } from '../../firebaseconfig';
+import { collection, doc, onSnapshot, query } from 'firebase/firestore';
+
+const CONTAINER = [];
+onSnapshot(query(collection(db, "products")), (querySnapshot) => {
+  querySnapshot.forEach((doc) => {
+    CONTAINER.push({...doc.data(), id: doc.id});
+  });
+  // console.log(container);
+  console.log('Loaded:', CONTAINER.length, 'items');
+});
 
 const initialState = {
-  availableProducts: LISTITEMS,
+  availableProducts: CONTAINER,
+  // availableProducts: db.collection('users'),
   userProducts: [],
 };
 

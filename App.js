@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
@@ -19,8 +19,13 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
-import { auth } from './firebaseconfig'
+import { auth, db } from './firebaseconfig'
+import { onSnapshot, collection, doc, setDoc, set, getDocs, addDoc, query, where } from 'firebase/firestore'
+import firestore from 'firebase/firestore';
+//import * as listItems from './listItems.json'
+//import * as firebase from "firebase"
 
 //export const firebase = initializeApp(firebaseConfig);
 //export const auth = getAuth(firebase);
@@ -52,20 +57,73 @@ export default function App() {
   const [userLoaded, setUserLoaded] = useState(false);
   const [user, setUser] = useState(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
       setUserLoaded(true);
+      if(user !== null) {
+        if(user.displayName === null) {
+          updateProfile(auth.currentUser, {
+            displayName: "Felhasználó" });
+        }
+      }
     });
     return unsubscribe;
+  }, []);
+
+  useEffect(() => {
+    // ----------------------LOAD DATA FROM DATABASE-------------------
+    // const CONTAINER = [];
+    // onSnapshot(query(collection(db, "products")), (querySnapshot) => {
+    //   querySnapshot.forEach((doc) => {
+    //     CONTAINER.push({...doc.data(), id: doc.id});
+    //   });
+    //   // console.log(container);
+    //   console.log('Loaded:', CONTAINER.length, 'items');
+    // });
+    // ----------------------------------------------------------------
+
+    // ------------------------UPLOADER--------------------------------
+    // const data = require('./<name>.json');
+    // for (const key in data) {
+    //   if (Object.hasOwnProperty.call(data, key)) {
+    //     const element = data[key];
+    //     Uploading(element);
+    //   }
+    // }
+    // async function Uploading(item) {
+    //   const collectionRef = collection(db, '<collection_name>');
+    //   const payload = item;
+    //   const docRef = await addDoc(collectionRef, payload);
+    //   console.log(docRef.id);
+    // }
+    // -----------------------------------------------------------------
   }, []);
 
   const handleSignUp = (email, password) => {
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in 
-      const user = userCredential.user;
-      console.log('Created with: ', user.email);
+      // Add User To Cloud Database
+
+      const userObj = {
+        name: userCredential.user.displayName,
+        username: "",
+        img: "",
+        age: 20,
+        gender: "male",
+        email: userCredential.user.email
+      }
+
+      const updateUsersDatabase = async (id, data) => {
+          const payload = data;
+          const docRef = doc(db, 'users', id);
+          setDoc(docRef, payload);
+          console.log(docRef.id);
+        }
+      updateUsersDatabase(auth.currentUser.uid, userObj);
+      
+      console.log('Created with: ', userCredential.user.email);
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -79,8 +137,7 @@ export default function App() {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Logged in 
-        const user = userCredential.user;
-      console.log('Logged in with: ', user.email);
+      console.log('Logged in with: ', userCredential.user.email);
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -109,7 +166,7 @@ export default function App() {
   }
 
   if (!user) {
-    return <LoginScreen login={handleLogin} register={handleSignUp} user={user} />;
+    return <LoginScreen login={handleLogin} register={handleSignUp} />;
   } 
   else
     return (
@@ -119,6 +176,7 @@ export default function App() {
     );
 }
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -127,3 +185,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+
