@@ -21,7 +21,6 @@ onSnapshot(query(collection(db, "products")), (querySnapshot) => {
 
 const initialState = {
   availableProducts: CONTAINER,
-  // availableProducts: db.collection('users'),
   userProducts: [],
 };
 
@@ -29,6 +28,7 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case ADD_TO_PRODUCTS:
       const newProduct = action.product;
+      // TODO: PUSH TO DATABASE
       return {
         ...state,
         availableProducts: [...state.availableProducts, newProduct],

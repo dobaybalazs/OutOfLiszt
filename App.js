@@ -24,6 +24,7 @@ import {
 import { auth, db } from './firebaseconfig'
 import { onSnapshot, collection, doc, setDoc, set, getDocs, addDoc, query, where } from 'firebase/firestore'
 import firestore from 'firebase/firestore';
+import USERS from './models/user'
 //import * as listItems from './listItems.json'
 //import * as firebase from "firebase"
 
@@ -61,18 +62,27 @@ export default function App() {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
       setUserLoaded(true);
-      if(user !== null) {
-        if(user.displayName === null) {
-          updateProfile(auth.currentUser, {
-            displayName: "Felhasználó" });
-        }
-      }
+      // if(user !== null) {
+      //   if(user.displayName === null) {
+      //     updateProfile(auth.currentUser, {
+      //       displayName: "Felhasználó" });
+      //   }
+      // }
     });
     return unsubscribe;
   }, []);
 
   useEffect(() => {
-    // ----------------------LOAD DATA FROM DATABASE-------------------
+
+    // const updateUsersDatabase = async (id, data) => {
+    //   const payload = data;
+    //   const docRef = doc(db, 'users', id);
+    //   await setDoc(docRef, payload);
+    //   console.log(docRef.id);
+    // }
+    // updateUsersDatabase(auth.currentUser.uid, userObj);
+
+    // ----------------------FETCH DATA FROM DATABASE-------------------
     // const CONTAINER = [];
     // onSnapshot(query(collection(db, "products")), (querySnapshot) => {
     //   querySnapshot.forEach((doc) => {
@@ -105,20 +115,27 @@ export default function App() {
     .then((userCredential) => {
       // Signed in 
       // Add User To Cloud Database
-
-      const userObj = {
-        name: userCredential.user.displayName,
-        username: "",
-        img: "",
-        age: 20,
-        gender: "male",
-        email: userCredential.user.email
-      }
-
+      // const userObj2 = {
+      //   username: "Felhasználó",
+      //   img: "https://lh3.googleusercontent.com/proxy/8Awhri_SHqrbsBqTXdza1QyNvnWt9XW1dV-vAnJuM16q-WrJOMm1Ywl-1IQVxvwtTbvTafsUocDOKRlLhe41aE8QxuN_5DwfZMQVla55Ew",
+      //   age: null,
+      //   gender: "male",
+      //   email: "userCredential.user.email",
+      //   ownLists: []
+      // };
+      const userObj = new USERS (
+        "Felhasználó",
+        null,
+        null,
+        null,
+        userCredential.user.email,
+        []
+      );
+      console.log(Object.assign({}, userObj));
       const updateUsersDatabase = async (id, data) => {
-          const payload = data;
+          const payload = Object.assign({}, data);
           const docRef = doc(db, 'users', id);
-          setDoc(docRef, payload);
+          await setDoc(docRef, payload);
           console.log(docRef.id);
         }
       updateUsersDatabase(auth.currentUser.uid, userObj);
