@@ -7,7 +7,9 @@ import { useSelector } from "react-redux";
 
 const ListsScreen = (props) => {
   const currentList = useSelector((state) => state.lists.userLists);
+  console.log(currentList);
   const renderListElement = (itemData) => {
+    console.log(itemData);
     return (
       <ListItemCard
         color={itemData.item.priority}

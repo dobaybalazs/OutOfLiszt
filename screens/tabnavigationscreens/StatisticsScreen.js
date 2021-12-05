@@ -197,6 +197,25 @@ const StatisticsScreen = (props) => {
             contentContainerStyle={{ width: "100%" }}
             showsVerticalScrollIndicator={false}
           >
+            <View style={{...styles.categoryContainer, borderBottomWidth: null}}>
+              <View style={styles.category}>
+                <DefaultText style={{...styles.text, fontWeight: "bold", fontSize: 20}}>Kategória</DefaultText>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    width: 80,
+                  }}
+                >
+                  <DefaultText style={{...styles.text, fontWeight: "bold", fontSize: 20}}>
+                    Db.
+                  </DefaultText>
+                  <DefaultText style={{...styles.text, fontWeight: "bold", fontSize: 20}}>
+                    Elo.
+                  </DefaultText>
+                </View>
+              </View>
+            </View>
             <View style={styles.categoryContainer}>
               <View
                 style={{
@@ -648,7 +667,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   body: {
-    height: 250,
+    flex: 2.3,
+    height: 350,
     width: "100%",
     alignItems: "center",
   },

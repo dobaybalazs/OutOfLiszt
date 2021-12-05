@@ -9,7 +9,9 @@ import { USERS } from "../data/dummy-data";
 import { useSelector } from "react-redux";
 
 const List = (props) => {
+
   const Users = ({ userData }) => {
+
     const currentUsers = [];
     for (const userId of userData) {
       currentUsers.push(USERS.find((actuser) => userId === actuser.id));
@@ -24,6 +26,7 @@ const List = (props) => {
     }
     return <DefaultText style={styles.attachedUsers}>{outputtext}</DefaultText>;
   };
+
   return (
     <View style={{ ...styles.listContainer, ...props.style }}>
       <View style={styles.date}>
@@ -52,7 +55,7 @@ const List = (props) => {
             size={24}
             color={Colors.whitecolor}
           />
-          <Users userData={props.users} />
+          {/* <Users userData={props.users} /> */}
         </View>
       </TouchableOpacity>
     </View>

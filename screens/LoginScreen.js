@@ -49,7 +49,7 @@ const LoginScreen = (props) => {
               </TouchableOpacity> */}
               <TouchableOpacity
                 onPress={() => props.login(email, password)}
-                style={styles.button}
+                style={{...styles.button, marginTop: 20}}
               >
                 <Text style={styles.buttonText}>Login</Text>
               </TouchableOpacity>
@@ -60,22 +60,23 @@ const LoginScreen = (props) => {
                 <Text style={styles.buttonOutlineText}>Register</Text>
               </TouchableOpacity>
             </View>
-          </View>
+          </View>   
           <View style={styles.footer}>
             <Image
               style={{ width: 200, height: 247 }}
               source={require("../assets/loginicon.jpg")}
             />
-          </View>
+        </View> 
         </ScrollView>
       </KeyboardAvoidingView>
+      
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   screen: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: "#fff",
   },
   title: {
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
     elevation: 6,
   },
   form: {
-    width: "100%",
+    //width: "100%",
     paddingHorizontal: "10%",
     justifyContent: "center",
     alignItems: "center",
@@ -151,6 +152,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   footer: {
+    //flex: 1,
     width: "100%",
     height: 300,
     alignItems: "flex-end",

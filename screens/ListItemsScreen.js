@@ -29,6 +29,7 @@ const ListItemsScreen = (props) => {
     dispatch(productActions.addToUserProducts(currentList.products));
     dispatch(listActions.deleteList(currentList.id));
   }, [dispatch, currentList]);
+  
   useEffect(() => {
     props.navigation.setParams({ toggleDelete: toggleDeleteHandler });
   }, [toggleDeleteHandler]);
