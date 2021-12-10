@@ -8,13 +8,24 @@ import Sizes from "../constants/Sizes";
 import { USERS } from "../data/dummy-data";
 import { useSelector } from "react-redux";
 
-const List = (props) => {
+import { db } from '../firebaseconfig';
+import { collection, onSnapshot, query } from 'firebase/firestore';
 
+const CONTAINER = [];
+onSnapshot(query(collection(db, "users")), (querySnapshot) => {
+  querySnapshot.forEach((doc) => {
+    CONTAINER.push({...doc.data(), id: doc.id});
+  });
+  // console.log(container);
+  // console.log('Loaded:', CONTAINER.length, 'users');
+});
+
+const List = (props) => {
   const Users = ({ userData }) => {
 
     const currentUsers = [];
     for (const userId of userData) {
-      currentUsers.push(USERS.find((actuser) => userId === actuser.id));
+      currentUsers.push(CONTAINER.find((actuser) => userId === actuser.id));
     }
     let outputtext = "";
     for (let i = 0; i < currentUsers.length; i++) {
@@ -55,7 +66,7 @@ const List = (props) => {
             size={24}
             color={Colors.whitecolor}
           />
-          {/* <Users userData={props.users} /> */}
+          <Users userData={props.users} />
         </View>
       </TouchableOpacity>
     </View>

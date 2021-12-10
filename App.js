@@ -25,6 +25,8 @@ import { auth, db } from './firebaseconfig'
 import { onSnapshot, collection, doc, setDoc, set, getDocs, addDoc, query, where } from 'firebase/firestore'
 import firestore from 'firebase/firestore';
 import USERS from './models/user'
+
+
 //import * as listItems from './listItems.json'
 //import * as firebase from "firebase"
 
@@ -51,6 +53,7 @@ const fetchFonts = () => {
     "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
   });
 };
+
 
 export default function App() {
 
@@ -192,7 +195,6 @@ export default function App() {
       </Provider>
     );
 }
-
 
 const styles = StyleSheet.create({
   container: {

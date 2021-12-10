@@ -16,6 +16,19 @@ import { useDispatch } from "react-redux";
 import * as listActions from "../store/actions/lists";
 import * as productActions from "../store/actions/products";
 
+import { db } from '../firebaseconfig';
+import { collection, onSnapshot, query } from 'firebase/firestore';
+
+const CONTAINER = [];
+onSnapshot(query(collection(db, "users")), (querySnapshot) => {
+  querySnapshot.forEach((doc) => {
+    CONTAINER.push({...doc.data(), id: doc.id});
+  });
+  // console.log(container);
+  console.log('Loaded:', CONTAINER.length, 'users');
+});
+
+
 const ListItemsScreen = (props) => {
   const dispatch = useDispatch();
   const allProducts = useSelector((state) => state.products.availableProducts);
@@ -24,6 +37,7 @@ const ListItemsScreen = (props) => {
       (list) => list.id === props.navigation.getParam("listId")
     )
   );
+  
   const toggleDeleteHandler = useCallback(() => {
     props.navigation.popToTop();
     dispatch(productActions.addToUserProducts(currentList.products));
@@ -33,6 +47,7 @@ const ListItemsScreen = (props) => {
   useEffect(() => {
     props.navigation.setParams({ toggleDelete: toggleDeleteHandler });
   }, [toggleDeleteHandler]);
+
   if (currentList) {
     const usersList = currentList.users;
     const renderListItem = (itemData) => {
@@ -69,7 +84,7 @@ const ListItemsScreen = (props) => {
       );
     };
     const renderUser = (itemData) => {
-      const currentUser = USERS.find((user) => user.id === itemData.item);
+      const currentUser = CONTAINER.find((user) => user.id === itemData.item);
       if (!currentUser) {
         return null;
       }

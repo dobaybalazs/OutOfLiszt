@@ -97,7 +97,7 @@ const ProfileScreen = (props) => {
         }
         console.log("In Bodycnp",user.img);
       }
-    }, []);
+    }, [localUser.img]);
     
 
 

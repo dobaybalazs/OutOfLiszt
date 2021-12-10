@@ -21,6 +21,7 @@ onSnapshot(query(collection(db, "products")), (querySnapshot) => {
 
 const initialState = {
   availableProducts: CONTAINER,
+  // availableProducts: LISTITEMS,
   userProducts: [],
 };
 
