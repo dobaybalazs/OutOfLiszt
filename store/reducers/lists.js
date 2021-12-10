@@ -10,16 +10,66 @@ import {
   INCREMENT_ITEM_COUNT,
   DECREASE_ITEM_COUNT,
 } from "../actions/lists";
+import { auth, db } from '../../firebaseconfig';
+import { useState, useEffect } from "react";
+import { collection, addDoc, onSnapshot, query, where, arrayUnion, doc, updateDoc } from 'firebase/firestore';
+//import { collection, onSnapshot, query, arrayUnion, doc, updateDoc } from 'firebase/firestore';
+
+
+const CONTAINER = [];
+
+setTimeout(() => {
+  onSnapshot(query(collection(db, "lists"), where("users", "array-contains", (auth.currentUser)?auth.currentUser.uid:"")), (querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      CONTAINER.push({...doc.data(), id: doc.id});
+    });
+    console.log('Loaded:', CONTAINER.length, 'lists');
+  }); 
+}, 1000);
+// if (auth.currentUser) {
+//   onSnapshot(query(collection(db, "lists"), where("users", "array-contains", (auth.currentUser)?auth.currentUser.uid:"")), (querySnapshot) => {
+//     querySnapshot.forEach((doc) => {
+//       CONTAINER.push({...doc.data(), id: doc.id});
+//     });
+//     console.log('Loaded:', CONTAINER.length, 'lists');
+//   }); 
+// }
+
+// onSnapshot(query(collection(db, "lists")), (querySnapshot) => {
+//   querySnapshot.forEach((doc) => {
+//     CONTAINER.push({...doc.data(), id: doc.id});
+//   });
+//   console.log('Loaded:', CONTAINER.length, 'lists');
+// }); 
 
 const initialState = {
-  availableLists: DEFAULTLISTS,
-  userLists: DEFAULTLISTS,
+  availableLists: CONTAINER,
+  userLists: CONTAINER,
 };
+
+async function Uploading(item) {
+  const collectionRef = collection(db, 'lists');
+  const payload = Object.assign({}, item);
+  const docRef = await addDoc(collectionRef, payload);
+  console.log(docRef.id);
+}
+
+const handleChange = async (list, userID) => {
+  // updateProfile(auth.currentUser, {
+  //   displayName: localname });
+  console.log(list, userID);
+  const userRef = doc(db, "lists", list);
+  await updateDoc(userRef, {
+    users: arrayUnion(userID)
+    //img: user.img
+  });
+}
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case ADD_TO_LIST:
       const addedList = action.listitem;
+      Uploading(addedList);
       return {
         ...state,
         userLists: [...state.userLists, addedList],
@@ -111,6 +161,7 @@ export default (state = initialState, action) => {
         }),
       };
     case ADD_USER:
+      handleChange(action.pairedIds.listId, action.pairedIds.userId)
       const searchedUser = action.pairedIds.userId;
       const addUserToListId = action.pairedIds.listId;
       const addUserList = state.userLists.find(

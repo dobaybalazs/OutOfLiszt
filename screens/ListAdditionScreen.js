@@ -17,12 +17,25 @@ import { useDispatch } from "react-redux";
 import * as listActions from "../store/actions/lists";
 import { USERS } from "../data/dummy-data";
 
+import { db, auth } from '../firebaseconfig';
+import { collection, onSnapshot, query } from 'firebase/firestore';
+
+const CONTAINER = [];
+onSnapshot(query(collection(db, "users")), (querySnapshot) => {
+  querySnapshot.forEach((doc) => {
+    CONTAINER.push({...doc.data(), id: doc.id});
+  });
+  // console.log(container);
+  // console.log('Loaded:', CONTAINER.length, 'users');
+});
+
+
+
 const ListAdditionScreen = (props) => {
   const [listName, setListName] = useState("");
   const [listDate, setListDate] = useState("");
   const [listUsers, setListUsers] = useState("");
   const [listPriority, setListPriority] = useState("red");
-
   const dispatch = useDispatch();
   return (
     <View style={styles.screen}>
@@ -84,11 +97,12 @@ const ListAdditionScreen = (props) => {
                 props.navigation.popToTop();
                 if (listName !== "" && listDate !== "") {
                   const userList = [];
+                  userList.push(auth.currentUser.uid);
                   if (listUsers !== "") {
                     const users = listUsers.split(",");
                     for (const user of users) {
                       userList.push(
-                        USERS.find((item) => {
+                        CONTAINER.find((item) => {
                           return user === item.username;
                         }).id
                       );
@@ -96,7 +110,7 @@ const ListAdditionScreen = (props) => {
                   }
                   const id = "l" + (Math.random() * 100).toString();
                   const newItem = new DefaultList(
-                    id,
+                    //id,
                     listName,
                     [],
                     userList,
@@ -121,6 +135,7 @@ const ListAdditionScreen = (props) => {
                 setListDate("");
                 setListPriority("");
                 setListUsers("");
+                props.navigation.goBack();
               }}
             >
               <View style={styles.bottomButton}>
@@ -185,6 +200,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   bottomButtonText: {
+    marginTop: 20,
     fontSize: Sizes.titlefontsize,
     color: Colors.primarygray,
   },

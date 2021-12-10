@@ -7,10 +7,23 @@ import { useDispatch } from "react-redux";
 import * as listActions from "../store/actions/lists";
 import { USERS } from "../data/dummy-data";
 
+import { db } from '../firebaseconfig';
+import { collection, onSnapshot, query, arrayUnion, doc, updateDoc } from 'firebase/firestore';
+
+const CONTAINER = [];
+onSnapshot(query(collection(db, "users")), (querySnapshot) => {
+  querySnapshot.forEach((doc) => {
+    CONTAINER.push({...doc.data(), id: doc.id});
+  });
+  // console.log(container);
+  // console.log('Loaded:', CONTAINER.length, 'users');
+});
+
 const SearchForUserScreen = (props) => {
   const dispatch = useDispatch();
   const currentListId = props.navigation.getParam("listId");
   const [userName, setUserName] = useState("");
+
   return (
     <View style={styles.screen}>
       <View style={styles.inputContainer}>
@@ -30,12 +43,13 @@ const SearchForUserScreen = (props) => {
         >
           <SearchButton
             onSelect={() => {
-              const user = USERS.find((user) => user.username === userName);
+              const user = CONTAINER.find((user) => user.username === userName);
               if (user) {
                 const pairedKeys = {
                   listId: currentListId,
                   userId: user.id,
                 };
+                //handleChange(currentListId, user.id);
                 dispatch(listActions.addUser(pairedKeys));
               }
               props.navigation.goBack();

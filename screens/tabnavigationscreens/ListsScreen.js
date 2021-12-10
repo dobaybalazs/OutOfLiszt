@@ -7,7 +7,9 @@ import { useSelector } from "react-redux";
 
 const ListsScreen = (props) => {
   const currentList = useSelector((state) => state.lists.userLists);
+  console.log(currentList);
   const renderListElement = (itemData) => {
+    console.log("ID:",itemData.item.id);
     return (
       <ListItemCard
         color={itemData.item.priority}
@@ -37,7 +39,7 @@ const ListsScreen = (props) => {
     <View style={styles.screen}>
       <View style={styles.body}>
         <FlatList
-          keyExtractor={(item, index) => item.id}
+          keyExtractor={(item, index) => item.name}
           data={currentList}
           renderItem={renderListElement}
           showsVerticalScrollIndicator={false}

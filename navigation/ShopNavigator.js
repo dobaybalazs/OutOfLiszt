@@ -24,6 +24,8 @@ import ItemAdditionScreen from "../screens/ItemAdditionScreen";
 import ItemDetailScreen from "../screens/ItemDetailScreen";
 import SearchForUserScreen from "../screens/SearchForUserScreen";
 import ProductAdditionScreen from "../screens/ProductAdditionScreen";
+import ProfilePicture from "../screens/ProfilePicture";
+
 
 const defaultStackNavOptions = {
   headerMode: "float",
@@ -73,6 +75,25 @@ const ListsNavigator = createStackNavigator(
         headerTintColor: Colors.secondarygray,
       },
     },
+  },
+  {
+    defaultNavigationOptions: defaultStackNavOptions,
+  }
+);
+const ProfileNavigator = createStackNavigator(
+  {
+    Profile: {
+      screen: ProfileScreen,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    Picture: {
+      screen: ProfilePicture,
+      navigationOptions: {
+        headerTitle: "Select Profile Picture",
+      },
+    }
   },
   {
     defaultNavigationOptions: defaultStackNavOptions,
@@ -139,7 +160,7 @@ const bottomTabScreenConfig = {
     },
   },
   Profile: {
-    screen: ProfileScreen,
+    screen: ProfileNavigator,
     navigationOptions: {
       tabBarIcon: (tabInfo) => {
         return (
